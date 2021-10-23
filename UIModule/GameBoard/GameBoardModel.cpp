@@ -1,5 +1,8 @@
 #include "GameBoardModel.hpp"
 
+#include <QColor>
+#include <QChar>
+
 GameBoardModel::GameBoardModel(const GameBoard& gameBoard)
     : gameBoard_(gameBoard) { }
 
@@ -20,8 +23,11 @@ QVariant GameBoardModel::headerData(int section, Qt::Orientation orientation, in
     return QString(QChar('a' + section));
 }
 
-QVariant GameBoardModel::data(const QModelIndex& index, int) const
+QVariant GameBoardModel::data(const QModelIndex& index, int role) const
 {
+    if (role == Qt::BackgroundColorRole)
+        return QVariant::fromValue(backgroundColor_[index.row()][index.column()]);
+
     return QVariant::fromValue(gameBoard_[index.row()][index.column()]);
 }
 
@@ -38,6 +44,11 @@ bool GameBoardModel::setData(const QModelIndex& index, const QVariant& value, in
     if (index.isValid() && role == Qt::EditRole)
     {
         gameBoard_[index.row()][index.column()] = qvariant_cast<GameBoardTile>(value);
+        return true;
+    }
+    else if (role == Qt::BackgroundColorRole)
+    {
+        backgroundColor_[index.row()][index.column()] = qvariant_cast<char>(value);
         return true;
     }
     else if (role == Qt::DisplayRole)

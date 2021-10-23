@@ -37,9 +37,27 @@ void TableViewBasedGameBoard::updateDisplay(const GameBoard& gameBoard)
         for (std::size_t j = 0; j < GameBoard::size; j++)
         {
             tableView_.model()->setData(tableView_.model()->index(i, j), QVariant::fromValue<GameBoardTile>(gameBoard[i][j]), Qt::EditRole);
+            setBackgroundColor(tableView_.model()->index(i, j), gameBoard_[i][j], viewdGameBoard_[i][j]);
         }
     }
     tableView_.model()->setData({}, {}, Qt::DisplayRole);
+}
+
+void TableViewBasedGameBoard::setBackgroundColor(const QModelIndex& modelIndex, const GameBoardTile& currentGameBoardTile, const GameBoardTile& gameBoardTileToDisplay)
+{
+    if (gameBoardTileToDisplay.valueType == GameBoardTile::ValueType::EMPTY)
+    {
+        tableView_.model()->setData(modelIndex, QVariant::fromValue('t'), Qt::BackgroundColorRole);
+        return;
+    }
+
+    char color = 't';
+    if (currentGameBoardTile.valueType == GameBoardTile::ValueType::EMPTY)
+        color = 'g';
+    else if (!(currentGameBoardTile == gameBoardTileToDisplay))
+        color = 'r';
+
+    tableView_.model()->setData(modelIndex, QVariant::fromValue(color), Qt::BackgroundColorRole);
 }
 
 const GameBoard& TableViewBasedGameBoard::getGameBoard()

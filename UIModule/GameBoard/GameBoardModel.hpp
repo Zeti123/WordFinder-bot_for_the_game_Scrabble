@@ -19,6 +19,7 @@ public:
 
 private:
     GameBoard gameBoard_;
+    std::array<std::array<char, GameBoard::size>, GameBoard::size> backgroundColor_;
 };
 
 #endif // GAMEBOARDMODEL_HPP
