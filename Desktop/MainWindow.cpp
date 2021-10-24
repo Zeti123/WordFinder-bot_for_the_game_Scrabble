@@ -1,6 +1,6 @@
 #include "MainWindow.hpp"
 #include "ui_MainWindow.h"
-#include "ui_LanguageChooseMenu.h"
+#include "ui_language_window.h"
 
 #include "TableViewBasedGameBoard.hpp"
 #include "UiController.hpp"
@@ -44,13 +44,14 @@
 #include <cmath>
 
 #include <QScrollBar>
-#include <QDesktopWidget>
+#include <QScreen>
 #include <QMessageBox>
 
 
 void MainWindow::resizeWindow()
 {
-    QRect rec = QApplication::desktop()->screenGeometry();
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect  rec = screen->geometry();
     auto height = rec.height();
     auto width = rec.width();
 
@@ -159,8 +160,8 @@ void MainWindow::setUpMainWindow(std::shared_ptr<ILanguagesHandeler> languageHan
     auto searchListController = std::make_shared<SearchListController>(searchBar, wordsList, showWordFromListCommand, selectWordFromListCommand, commandList);
     connect(ui->search_apply, &QPushButton::clicked, searchListController.get(), &SearchListController::receiveApply);
 
-    auto undoShortcut = std::make_unique<QShortcut>(QKeySequence(Qt::CTRL + Qt::Key_Z), this);
-    auto redoShortcut = std::make_unique<QShortcut>(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_Z), this);
+    auto undoShortcut = std::make_unique<QShortcut>(QKeySequence(Qt::CTRL | Qt::Key_Z), this);
+    auto redoShortcut = std::make_unique<QShortcut>(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_Z), this);
     auto timeTraveler = std::make_shared<TimeTraveler>(*ui->undo, *ui->redo, commandList, std::move(undoShortcut), std::move(redoShortcut));
 
     std::vector<std::shared_ptr<IUiStateChanger>> stateChangers = {newWordAdder, gameBoardTilesEraser, userLettersAdder, searchListController, timeTraveler};
@@ -174,22 +175,21 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , uiMenu(new Ui::language_window)
 {
+    uiMenu->setupUi(this);
     try
     {
-        uiMenu->setupUi(this);
 
         LanguageHandeler l;
         for (auto language: l.getAvailableLanguages())
-            uiMenu->languages_list->addItem(language);
+        uiMenu->languages_list->addItem(language);
         auto languageHandeler = std::make_shared<LanguageHandeler>();
-
         connect(uiMenu->ok_button, &QPushButton::clicked, this, [this, languageHandeler]()
         {
             try
             {
                 setUpMainWindow(languageHandeler, uiMenu->languages_list->currentItem()->text());
             }
-            catch (std::runtime_error e)
+            catch (std::runtime_error& e)
             {
                 QMessageBox messageBox;
                 messageBox.critical(0, "Error", e.what());
@@ -198,7 +198,7 @@ MainWindow::MainWindow(QWidget *parent)
             }
         });
     }
-    catch (std::runtime_error e)
+    catch (std::runtime_error& e)
     {
         QMessageBox messageBox;
         messageBox.critical(0, "Error", e.what());
@@ -212,11 +212,12 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::resizeEvent(QResizeEvent*)
+/*void MainWindow::resizeEvent(QResizeEvent*)
 {
     std::size_t tileSize = std::ceil((std::max(ui->game_board->width(), ui->game_board->height())-2) / 15.0);
     ui->game_board->horizontalHeader()->setDefaultSectionSize(tileSize);
     ui->game_board->verticalHeader()->setDefaultSectionSize(tileSize);
-}
+}*/
+
 
 

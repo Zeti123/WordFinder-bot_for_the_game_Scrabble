@@ -32,7 +32,13 @@ std::string scrabbleStrToStdStr(const ScrabbleString& str)
 
 	return res;
 }
+
 bool operator== (const ScrabbleLetter& scl1, const ScrabbleLetter& scl2)
 {
 	return scl1.letter == scl2.letter && scl1.letter == scl2.letter;
+}
+
+bool operator <(const ScrabbleLetter& scl1, const ScrabbleLetter& scl2)
+{
+    return scl1.letter < scl2.letter;
 }

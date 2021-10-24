@@ -126,8 +126,8 @@ HEADERS += \
     MainWindow.hpp
 
 FORMS += \
-    LanguageChooseMenu.ui \
-    MainWindow.ui
+    MainWindow.ui \
+    language_window.ui
 
 INCLUDEPATH += \
     $$PWD/../ \
@@ -151,6 +151,7 @@ INCLUDEPATH += \
     $$PWD/../UIModule/Utils/Controls \
     $$PWD/../UIModule/UserLetters \
     $$PWD/../Uils \
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

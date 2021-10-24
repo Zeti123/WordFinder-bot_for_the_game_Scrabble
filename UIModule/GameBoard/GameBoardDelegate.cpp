@@ -12,7 +12,7 @@ void GameBoardDelegate::paint(QPainter* painter, const QStyleOptionViewItem& opt
     QPixmap* background = nullptr;
     QPixmap letter = {};
     GameBoardTile tile = index.data().value<GameBoardTile>();
-    char color = index.data(Qt::BackgroundColorRole).value<char>();
+    char color = index.data(Qt::BackgroundRole).value<char>();
 
     if (tile.valueType == GameBoardTile::ValueType::NORMAL_TILE)
         letter = textureHandeler_->getLetterTexture(tile.value);

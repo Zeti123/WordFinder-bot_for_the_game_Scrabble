@@ -20,4 +20,5 @@ std::ostream& operator << (std::ostream& o, const ScrabbleLetter& letter);
 using ScrabbleString = std::basic_string<ScrabbleLetter>;
 std::ostream& operator << (std::ostream& o, const ScrabbleString& str);
 std::string scrabbleStrToStdStr(const ScrabbleString& str);
-bool operator== (const ScrabbleLetter& scl1, const ScrabbleLetter& scl2);
+bool operator ==(const ScrabbleLetter& scl1, const ScrabbleLetter& scl2);
+bool operator <(const ScrabbleLetter& scl1, const ScrabbleLetter& scl2);

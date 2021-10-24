@@ -47,7 +47,7 @@ void TableViewBasedGameBoard::setBackgroundColor(const QModelIndex& modelIndex, 
 {
     if (gameBoardTileToDisplay.valueType == GameBoardTile::ValueType::EMPTY)
     {
-        tableView_.model()->setData(modelIndex, QVariant::fromValue('t'), Qt::BackgroundColorRole);
+        tableView_.model()->setData(modelIndex, QVariant::fromValue('t'), Qt::BackgroundRole);
         return;
     }
 
@@ -57,7 +57,7 @@ void TableViewBasedGameBoard::setBackgroundColor(const QModelIndex& modelIndex, 
     else if (!(currentGameBoardTile == gameBoardTileToDisplay))
         color = 'r';
 
-    tableView_.model()->setData(modelIndex, QVariant::fromValue(color), Qt::BackgroundColorRole);
+    tableView_.model()->setData(modelIndex, QVariant::fromValue(color), Qt::BackgroundRole);
 }
 
 const GameBoard& TableViewBasedGameBoard::getGameBoard()
