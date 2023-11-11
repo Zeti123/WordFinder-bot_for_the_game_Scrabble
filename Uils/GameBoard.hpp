@@ -61,6 +61,7 @@ public:
     WordPlacement findWordHorizontallyCrossedBy(std::pair<uint8_t, uint8_t> position) const;
     ScrabbleString findPrefixForPos(std::pair<uint8_t, uint8_t> position) const;
     ScrabbleString findSufixForPos(std::pair<uint8_t, uint8_t> position) const;
+    bool isEmpty() const;
     void putWord(const ScrabbleString& str, std::pair<uint8_t, uint8_t> place, Orientation orientation);
     void putWord(const std::vector<GameBoardTile>& str, std::pair<uint8_t, uint8_t> place, Orientation orientation);
     void putWord(const WordPlacement& wordPlacement);

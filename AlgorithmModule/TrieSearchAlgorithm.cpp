@@ -303,6 +303,25 @@ std::vector<SearchAlgorithmResult> TrieSearchAlgorithm::search(const SearchAlgor
     logger::debug("TrieSearchAlgorithm::Starting searching\n");
     std::vector<SearchAlgorithmResult> results;
     
+    if (query.gameBoard.isEmpty())
+    {
+        logger::debug("board empty searching words only in the middle\n");
+
+        LineType line;
+        std::array<std::size_t, GameBoard::size> minLen = {{8, 7, 6, 5, 4, 3, 2, 1, 15, 15, 15, 15, 15, 15, 15}};
+        RowOfPossibleLetters possibleLetters = {{}};
+
+        auto lineResult = searchOneLine(line, minLen, query.userLetters, possibleLetters);
+        auto lineResultCpy = lineResult;
+
+        auto horizontalResults = convertLineResult(std::move(lineResult), Orientation::HORIZONTAL, 7);
+        auto verticalResults = convertLineResult(std::move(lineResultCpy), Orientation::VERTICAL, 7);
+
+        horizontalResults.insert(horizontalResults.end(), verticalResults.begin(), verticalResults.end());
+
+        return horizontalResults;
+    }
+
     std::array<std::vector<SearchAlgorithmResult>, GameBoard::size * 2> lineResults; 
 
     if (informer_.isNotified())

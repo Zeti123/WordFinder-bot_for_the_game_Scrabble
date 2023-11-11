@@ -128,6 +128,16 @@ ScrabbleString GameBoard::findSufixForPos(std::pair<uint8_t, uint8_t> position) 
     return res;
 }
 
+bool GameBoard::isEmpty() const
+{
+    for (const auto& line: board_)
+        for (const auto& field: line)
+            if (field.valueType != GameBoardTile::ValueType::EMPTY)
+                return false;
+
+    return true;
+}
+
 void GameBoard::putWord(const ScrabbleString& str, std::pair<uint8_t, uint8_t> place, Orientation orientation)
 {
     logger::debug("GameBoard::putWord(", str, ' ', static_cast<std::pair<std::size_t, std::size_t>>(place), ' ', orientation,")\n");

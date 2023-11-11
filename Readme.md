@@ -9,7 +9,6 @@ For the program to work properly, you need to put the "Src" folder in the progra
 A bot, that can always find the word worth the most points in a game of Scrabble.
 Implemented using a multithreaded trie tree based algorithm. Features a GUI, multiple undo, and parsing of user-provided dictionaries. 
 Currently supported languages are English and Polish.
-
 ![obraz](https://user-images.githubusercontent.com/23141452/142050998-4c9a8311-5a97-4887-a3e7-c3a18ee6d070.png)
 
 ## how to add own dictionary
