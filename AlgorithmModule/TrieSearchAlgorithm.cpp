@@ -1,10 +1,12 @@
 #include "TrieSearchAlgorithm.hpp"
-#include "SearchAlgorithmResult.hpp"
-#include "log.hpp"
 
 #include <random>
 #include <iostream>
 #include <future>
+
+#include "SearchAlgorithmResult.hpp"
+#include "log.hpp"
+#include "GameBoardHelpers.hpp"
 
 TrieSearchAlgorithm::PossibleLettersContainter::PossibleLettersContainter(bool isAllLettersPossible, const std::vector<char>& possibleLetters)
     : isAllLettersPossible_(isAllLettersPossible), possibleLetters_(possibleLetters) { }
@@ -105,8 +107,8 @@ TrieSearchAlgorithm::RowOfPossibleLetters
     RowOfPossibleLetters res;
     for (uint8_t i = 0; i < GameBoard::size; i++)
     {
-        auto prefix = scrabbleStrToStdStr(gameBoard.findPrefixForPos(std::make_pair(i, lineNumber)));
-        auto sufix = scrabbleStrToStdStr(gameBoard.findSufixForPos(std::make_pair(i, lineNumber)));
+        auto prefix = scrabbleStrToStdStr(findPrefixForPos(gameBoard, std::make_pair(i, lineNumber)));
+        auto sufix = scrabbleStrToStdStr(findSufixForPos(gameBoard, std::make_pair(i, lineNumber)));
 
         res[i] = findPossibleLettersBetween(prefix, sufix);
     }
@@ -285,7 +287,7 @@ void TrieSearchAlgorithm::searchLines(const SearchAlgorithmQuery& query, Orienta
     else
     {
         // search vertically
-        auto reflectedGameBoard = GameBoard::reflectGameBoard(query.gameBoard);
+        auto reflectedGameBoard = reflectGameBoard(query.gameBoard);
         for (std::size_t i = from; i < to; i++)
         {
             auto possibleLettersInLine = findPossibleLettersForRow(reflectedGameBoard, i);

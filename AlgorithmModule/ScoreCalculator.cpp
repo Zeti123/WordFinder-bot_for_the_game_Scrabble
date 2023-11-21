@@ -1,5 +1,7 @@
 #include "ScoreCalculator.hpp"
+
 #include "log.hpp"
+#include "GameBoardHelpers.hpp"
 
 std::unique_ptr<ScoreCalculator> ScoreCalculator::Instance(const LettersInfo& lettersInfo)
 {
@@ -42,9 +44,9 @@ std::vector<WordPlacement> ScoreCalculator::findAllCreatedWords(const WordPlacem
                     GameBoardTile(word.word[i].letter, GameBoardTile::ValueType::EMPTY_TILE);
 
             if (word.orientation == Orientation::HORIZONTAL)
-                words.push_back(gameBoardTmp.findWordVerticallyCrossedBy(std::make_pair(posX, posY)));
+                words.push_back(findWordVerticallyCrossedBy(gameBoardTmp, std::make_pair(posX, posY)));
             else
-                words.push_back(gameBoardTmp.findWordHorizontallyCrossedBy(std::make_pair(posX, posY)));
+                words.push_back(findWordHorizontallyCrossedBy(gameBoardTmp, std::make_pair(posX, posY)));
 
             gameBoardTmp[posY][posX] = GameBoardTile('\0', GameBoardTile::ValueType::EMPTY);
         }

@@ -1,11 +1,11 @@
 #ifndef FILEREADHELPERS_HPP
 #define FILEREADHELPERS_HPP
 
+#include <memory>
+
 #include "ILettersRenumberer.hpp"
 #include "LettersInfo.hpp"
 #include "FileReader.hpp"
-
-#include <memory>
 
 LettersInfo getLettersInfo(const std::string& filename, std::shared_ptr<ILettersRenumberer> renumberer);
 std::vector<wchar_t> readFile(const std::string& filename);

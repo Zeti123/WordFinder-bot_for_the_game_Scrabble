@@ -49,12 +49,14 @@ SOURCES += \
     ../UIModule/Utils/Controls/RadioButtonSwitch.cpp \
     ../UIModule/Utils/SlotsBlocker.cpp \
     ../UIModule/Utils/TextureHandeler.cpp \
+    ../Uils/CommonDataStructures/GameBoard.cpp \
+    ../Uils/CommonDataStructures/ScrabbleString.cpp \
+    ../Uils/CommonDataStructures/WordPlacement.cpp \
     ../Uils/FileReadHelpers.cpp \
-    ../Uils/GameBoard.cpp \
+    ../Uils/GameBoardHelpers.cpp \
     ../Uils/LettersInfo.cpp \
     ../Uils/LettersRenumberer.cpp \
     ../Uils/PolishDebugRenumberer.cpp \
-    ../Uils/ScrabbleString.cpp \
     ../Uils/ThreadInformer.cpp \
     main.cpp \
     MainWindow.cpp
@@ -115,13 +117,15 @@ HEADERS += \
     ../UIModule/Utils/ITextureHandeler.hpp \
     ../UIModule/Utils/SlotsBlocker.hpp \
     ../UIModule/Utils/TextureHandeler.hpp \
+    ../Uils/CommonDataStructures/GameBoard.hpp \
+    ../Uils/CommonDataStructures/ScrabbleString.hpp \
+    ../Uils/CommonDataStructures/WordPlacement.hpp \
     ../Uils/FileReadHelpers.hpp \
-    ../Uils/GameBoard.hpp \
+    ../Uils/GameBoardHelpers.hpp \
     ../Uils/ILettersRenumberer.hpp \
     ../Uils/LettersInfo.hpp \
     ../Uils/LettersRenumberer.hpp \
     ../Uils/PolishDebugRenumberer.hpp \
-    ../Uils/ScrabbleString.hpp \
     ../Uils/ThreadInformer.hpp \
     MainWindow.hpp
 
@@ -151,6 +155,7 @@ INCLUDEPATH += \
     $$PWD/../UIModule/Utils/Controls \
     $$PWD/../UIModule/UserLetters \
     $$PWD/../Uils \
+    $$PWD/../Uils/CommonDataStructures \
 
 
 # Default rules for deployment.

@@ -20,7 +20,7 @@ void TableViewBasedGameBoard::updateGameBoard(const GameBoard& gameBoard)
 void TableViewBasedGameBoard::showResultView(const WordPlacement& result)
 {
     auto copy = gameBoard_;
-    copy.putWord(result);
+    copy.placeWord(result);
     updateDisplay(copy);
 }
 

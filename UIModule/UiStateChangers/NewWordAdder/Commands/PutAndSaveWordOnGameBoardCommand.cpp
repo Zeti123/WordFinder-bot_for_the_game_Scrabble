@@ -14,7 +14,7 @@ bool PutAndSaveWordOnGameBoardCommand::execute()
     lastSelected_ = WordPlacement(word, position, orientation);
     prevTiles_ = gameBoard.getWordFromPlacement(lastSelected_);
 
-    gameBoard.putWord(lastSelected_);
+    gameBoard.placeWord(lastSelected_);
     gameBoard_->updateGameBoard(gameBoard);
 
     return !word.empty();
@@ -23,14 +23,14 @@ bool PutAndSaveWordOnGameBoardCommand::execute()
 void PutAndSaveWordOnGameBoardCommand::undo()
 {
     auto gameBoard = gameBoard_->getGameBoard();
-    gameBoard.putWord(prevTiles_, lastSelected_.position, lastSelected_.orientation);
+    gameBoard.placeWord(prevTiles_, lastSelected_.position, lastSelected_.orientation);
     gameBoard_->updateGameBoard(gameBoard);
 }
 
 void PutAndSaveWordOnGameBoardCommand::redo()
 {
     auto gameBoard = gameBoard_->getGameBoard();
-    gameBoard.putWord(lastSelected_);
+    gameBoard.placeWord(lastSelected_);
     gameBoard_->updateGameBoard(gameBoard);
 }
 

@@ -29,13 +29,13 @@ void SelectWordFromListCommand::putLastSelectedOnBoard()
 {
     auto gameBoard = display_->getGameBoard();
     prevTiles_ = gameBoard.getWordFromPlacement(lastSelected_.word);
-    gameBoard.putWord(lastSelected_.word);
+    gameBoard.placeWord(lastSelected_.word);
     display_->updateGameBoard(gameBoard);
 }
 
 void SelectWordFromListCommand::liftLastSelectedFromBoard()
 {
     auto gameBoard = display_->getGameBoard();
-    gameBoard.putWord(prevTiles_, lastSelected_.word.position, lastSelected_.word.orientation);
+    gameBoard.placeWord(prevTiles_, lastSelected_.word.position, lastSelected_.word.orientation);
     display_->updateGameBoard(gameBoard);
 }

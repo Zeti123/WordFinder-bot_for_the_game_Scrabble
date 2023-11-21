@@ -1,10 +1,12 @@
 #include "LettersInfo.hpp"
+
 #include "log.hpp"
 
 LettersInfo::LettersInfo(const std::vector<std::pair<char, std::size_t>>& letters)
     :letterScore_({})
 {
     logger::debug("LettersInfo::LettersInfo(", letters, ")");
+
     for (auto letterInfo: letters)
     {
         logger::debug("letter \'", static_cast<std::size_t>(letterInfo.first), "\' score set to: ", letterInfo.second, "\n");
@@ -21,6 +23,7 @@ std::size_t LettersInfo::getLetterScore(char letter) const
 {
     logger::debug("LettersInfo::getLetterScore(char(", std::to_string(letter), ")) score is: ",
                  std::to_string(letterScore_[static_cast<std::size_t>(letter)]), "\n");
+
     return letterScore_[static_cast<std::size_t>(letter)];
 }
 

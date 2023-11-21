@@ -1,7 +1,7 @@
 #pragma once
 
-#include <string>
 #include <cstdint>
+#include <string>
 
 struct ScrabbleLetter
 {
@@ -16,9 +16,11 @@ struct ScrabbleLetter
     char letter;
 };
 
-std::ostream& operator << (std::ostream& o, const ScrabbleLetter& letter);
 using ScrabbleString = std::basic_string<ScrabbleLetter>;
-std::ostream& operator << (std::ostream& o, const ScrabbleString& str);
+
+std::ostream& operator << (std::ostream& ostream, const ScrabbleLetter& letter);
+std::ostream& operator << (std::ostream& ostream, const ScrabbleString& str);
+bool operator == (const ScrabbleLetter& l, const ScrabbleLetter& r);
+bool operator < (const ScrabbleLetter& l, const ScrabbleLetter& r);
+
 std::string scrabbleStrToStdStr(const ScrabbleString& str);
-bool operator ==(const ScrabbleLetter& scl1, const ScrabbleLetter& scl2);
-bool operator <(const ScrabbleLetter& scl1, const ScrabbleLetter& scl2);
