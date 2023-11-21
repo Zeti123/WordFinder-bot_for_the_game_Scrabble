@@ -5,7 +5,7 @@
 #include "IUiController.hpp"
 
 #include "AlgorithmModule/ScrabbleSearchEngineResult.hpp"
-#include "AlgorithmModule/ScrabbleSearchEngine.hpp"
+#include "AlgorithmModule/IScrabbleSearchEngine.hpp"
 
 #include <condition_variable>
 #include <memory>
@@ -18,13 +18,13 @@ class Program: public QObject
 {
     Q_OBJECT
 public:
-    Program(std::unique_ptr<IUiController>&& uiController, std::unique_ptr<ScrabbleSearchEngine>&& searchEngine, const ThreadInformer& informer);
+    Program(std::unique_ptr<IUiController>&& uiController, std::unique_ptr<IScrabbleSearchEngine>&& searchEngine, const ThreadInformer& informer);
 
 private:
     void startSearch(GameBoard gameBoard, ScrabbleString userLetters);
     void gentlyAskTheThreadToEnd();
     std::unique_ptr<IUiController> uiController_;
-    std::unique_ptr<ScrabbleSearchEngine> searchEngine_;
+    std::unique_ptr<IScrabbleSearchEngine> searchEngine_;
     std::vector<ScrabbleSearchEngineResult> results_;
 
     std::unique_ptr<std::thread> searchThread_;

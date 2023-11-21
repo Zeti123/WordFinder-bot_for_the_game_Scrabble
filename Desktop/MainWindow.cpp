@@ -12,8 +12,7 @@
 #include "ListViewBasedUserLetters.hpp"
 #include "UserLettersAdder.hpp"
 #include "ScrabbleWordsList.hpp"
-#include "ScrabbleSearchEngine.hpp"
-#include "ScoreCalculator.hpp"
+#include "SearchEngineFactory.hpp"
 #include "GameBoardDelegate.hpp"
 #include "LettersRenumberer.hpp"
 #include "TextureHandeler.hpp"
@@ -37,8 +36,6 @@
 #include "ShowWordFromListCommand.hpp"
 #include "FileReadHelpers.hpp"
 
-#include "AlgorithmModule/Trie.hpp"
-#include "AlgorithmModule/TrieSearchAlgorithm.hpp"
 #include "AlgorithmModule/log.hpp"
 
 #include <cmath>
@@ -60,7 +57,6 @@ void MainWindow::resizeWindow()
 
     if (width <= windowSize.width() || height <= windowSize.height())
     {
-        // it was totally unplanned and it turned out to be literally a pixel-perfect value
         windowSize = QSize(969, 696);
         tileSize = 41;
     }
@@ -90,7 +86,8 @@ void MainWindow::setUpMainWindow(std::shared_ptr<ILanguagesHandeler> languageHan
     uiMenu->loading_bar->setValue(33);
     auto listOfWords = convertFromQStringVector(unconvertedList, lettersRenumberer);
     uiMenu->loading_bar->setValue(66);
-    Trie trie(listOfWords);
+    auto threadInformer = ThreadInformer();
+    auto searchEngine = SearchEngineFactory::create(listOfWords, *lettersInfo, threadInformer);
     uiMenu->loading_bar->setValue(100);
     ui->setupUi(this);
 
@@ -112,10 +109,6 @@ void MainWindow::setUpMainWindow(std::shared_ptr<ILanguagesHandeler> languageHan
                                                               "background: none;"
                                                           "}");
 
-    auto threadInformer = ThreadInformer();
-    auto searchAlgorithm = TrieSearchAlgorithm::Instance(trie, threadInformer);
-    auto scoreCalculator = ScoreCalculator::Instance(*lettersInfo);
-    auto searchEngine = std::make_unique<ScrabbleSearchEngine>(std::move(searchAlgorithm), std::move(scoreCalculator));
 
     auto model = new GameBoardModel({});
     auto table = ui->game_board;

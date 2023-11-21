@@ -1,6 +1,6 @@
 #include "Program.hpp"
 
-Program::Program(std::unique_ptr<IUiController>&& uiController, std::unique_ptr<ScrabbleSearchEngine>&& searchEngine, const ThreadInformer& informer)
+Program::Program(std::unique_ptr<IUiController>&& uiController, std::unique_ptr<IScrabbleSearchEngine>&& searchEngine, const ThreadInformer& informer)
     :uiController_(std::move(uiController)), searchEngine_(std::move(searchEngine)), searchThread_(nullptr),
      stoppingThreadCondVar_(), threadShouldStop_(informer), threadStopped_(true)
 {

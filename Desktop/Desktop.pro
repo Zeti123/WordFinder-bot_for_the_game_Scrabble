@@ -9,16 +9,17 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ../AlgorithmModule/ScoreCalculator.cpp \
-    ../AlgorithmModule/ScoreCalculatorQuery.cpp \
-    ../AlgorithmModule/ScoreCalculatorResult.cpp \
+    ../AlgorithmModule/ScoreCalculator/ScoreCalculator.cpp \
+    ../AlgorithmModule/ScoreCalculator/ScoreCalculatorFactory.cpp \
+    ../AlgorithmModule/ScoreCalculator/ScoreCalculatorQuery.cpp \
+    ../AlgorithmModule/ScoreCalculator/ScoreCalculatorResult.cpp \
     ../AlgorithmModule/ScrabbleSearchEngine.cpp \
     ../AlgorithmModule/ScrabbleSearchEngineQuery.cpp \
     ../AlgorithmModule/ScrabbleSearchEngineResult.cpp \
-    ../AlgorithmModule/SearchAlgorithmQuery.cpp \
-    ../AlgorithmModule/SearchAlgorithmResult.cpp \
-    ../AlgorithmModule/Trie.cpp \
-    ../AlgorithmModule/TrieSearchAlgorithm.cpp \
+    ../AlgorithmModule/SearchAlgorithm/SearchAlgorithmFactory.cpp \
+    ../AlgorithmModule/SearchAlgorithm/Trie.cpp \
+    ../AlgorithmModule/SearchAlgorithm/TrieSearchAlgorithm.cpp \
+    ../AlgorithmModule/SearchEngineFactory.cpp \
     ../AlgorithmModule/log.cpp \
     ../FilesystemModule/FileReader.cpp \
     ../FilesystemModule/LanguageHandeler.cpp \
@@ -62,18 +63,22 @@ SOURCES += \
     MainWindow.cpp
 
 HEADERS += \
-    ../AlgorithmModule/IScoreCalculator.hpp \
-    ../AlgorithmModule/ISearchAlgorithm.hpp \
-    ../AlgorithmModule/ScoreCalculator.hpp \
-    ../AlgorithmModule/ScoreCalculatorQuery.hpp \
-    ../AlgorithmModule/ScoreCalculatorResult.hpp \
+    ../AlgorithmModule/IScrabbleSearchEngine.hpp \
+    ../AlgorithmModule/ScoreCalculator/IScoreCalculator.hpp \
+    ../AlgorithmModule/ScoreCalculator/ScoreCalculator.hpp \
+    ../AlgorithmModule/ScoreCalculator/ScoreCalculatorFactory.hpp \
+    ../AlgorithmModule/ScoreCalculator/ScoreCalculatorQuery.hpp \
+    ../AlgorithmModule/ScoreCalculator/ScoreCalculatorResult.hpp \
     ../AlgorithmModule/ScrabbleSearchEngine.hpp \
     ../AlgorithmModule/ScrabbleSearchEngineQuery.hpp \
     ../AlgorithmModule/ScrabbleSearchEngineResult.hpp \
-    ../AlgorithmModule/SearchAlgorithmQuery.hpp \
-    ../AlgorithmModule/SearchAlgorithmResult.hpp \
-    ../AlgorithmModule/Trie.hpp \
-    ../AlgorithmModule/TrieSearchAlgorithm.hpp \
+    ../AlgorithmModule/SearchAlgorithm/ISearchAlgorithm.hpp \
+    ../AlgorithmModule/SearchAlgorithm/SearchAlgorithmFactory.hpp \
+    ../AlgorithmModule/SearchAlgorithm/SearchAlgorithmQuery.hpp \
+    ../AlgorithmModule/SearchAlgorithm/SearchAlgorithmResult.hpp \
+    ../AlgorithmModule/SearchAlgorithm/Trie.hpp \
+    ../AlgorithmModule/SearchAlgorithm/TrieSearchAlgorithm.hpp \
+    ../AlgorithmModule/SearchEngineFactory.hpp \
     ../AlgorithmModule/log.hpp \
     ../FilesystemModule/FileReader.hpp \
     ../FilesystemModule/IFileReader.hpp \
@@ -136,6 +141,8 @@ FORMS += \
 INCLUDEPATH += \
     $$PWD/../ \
     $$PWD/../AlgorithmModule \
+    $$PWD/../AlgorithmModule/ScoreCalculator \
+    $$PWD/../AlgorithmModule/SearchAlgorithm \
     $$PWD/../Desktop \
     $$PWD/../FilesystemModule \
     $$PWD/../UIModule \

@@ -1,7 +1,7 @@
 #ifndef IFILEREADER_HPP
 #define IFILEREADER_HPP
 
-#include "AlgorithmModule/Trie.hpp"
+#include "Trie.hpp"
 
 #include <QString>
 #include <vector>
