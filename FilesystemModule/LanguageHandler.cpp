@@ -1,16 +1,16 @@
-#include "LanguageHandeler.hpp"
+#include "LanguageHandler.hpp"
 
 #include <algorithm>
 #include <filesystem>
 
-std::vector<QString> LanguageHandeler::getAvailableLanguages()
+std::vector<QString> LanguageHandler::getAvailableLanguages()
 {
     namespace fs = std::filesystem;
     auto currentPath = fs::current_path();
-    currentPath += "/Src/Languages/";
+    currentPath += "/Resources/Languages/";
 
     if (!fs::exists(currentPath))
-        throw std::runtime_error(std::string("cannot find ./Src/Languages folder\n") + ERROR_HINT);
+        throw std::runtime_error(std::string("cannot find ./Resources/Languages folder\n") + ERROR_HINT);
 
     std::vector<QString> languages;
     for (auto file: fs::directory_iterator(currentPath))
@@ -25,22 +25,22 @@ std::vector<QString> LanguageHandeler::getAvailableLanguages()
     return languages;
 }
 
-QString LanguageHandeler::getWordsFilePath(const QString& language)
+QString LanguageHandler::getWordsFilePath(const QString& language)
 {
     namespace fs = std::filesystem;
     auto path = fs::current_path();
-    path += "/Src/Languages/" + language.toStdString() + "/words.txt";
+    path += "/Resources/Languages/" + language.toStdString() + "/words.txt";
     if (!fs::exists(path))
         throw std::runtime_error("cannot find" + path.string() + " file\n" + ERROR_HINT);
 
     return QString::fromStdString(path);
 }
 
-QString LanguageHandeler::getLettersInfoFilePath(const QString& language)
+QString LanguageHandler::getLettersInfoFilePath(const QString& language)
 {
     namespace fs = std::filesystem;
     auto path = fs::current_path();
-    path += "/Src/Languages/" + language.toStdString() + "/letters_info.txt";
+    path += "/Resources/Languages/" + language.toStdString() + "/letters_info.txt";
     if (!fs::exists(path))
         throw std::runtime_error("cannot find" + path.string() + " file\n" + ERROR_HINT);
 

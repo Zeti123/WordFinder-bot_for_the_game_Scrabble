@@ -22,7 +22,7 @@ SOURCES += \
     ../AlgorithmModule/SearchEngineFactory.cpp \
     ../AlgorithmModule/log.cpp \
     ../FilesystemModule/FileReader.cpp \
-    ../FilesystemModule/LanguageHandeler.cpp \
+    ../FilesystemModule/LanguageHandler.cpp \
     ../Program.cpp \
     ../UIModule/GameBoard/GameBoardDelegate.cpp \
     ../UIModule/GameBoard/GameBoardModel.cpp \
@@ -82,8 +82,8 @@ HEADERS += \
     ../AlgorithmModule/log.hpp \
     ../FilesystemModule/FileReader.hpp \
     ../FilesystemModule/IFileReader.hpp \
-    ../FilesystemModule/ILanguagesHandeler.hpp \
-    ../FilesystemModule/LanguageHandeler.hpp \
+    ../FilesystemModule/ILanguagesHandler.hpp \
+    ../FilesystemModule/LanguageHandler.hpp \
     ../Program.hpp \
     ../UIModule/GameBoard/GameBoardDelegate.hpp \
     ../UIModule/GameBoard/GameBoardModel.hpp \
@@ -171,16 +171,16 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    ../Src/Languages/English/letters_info.txt \
-    ../Src/Languages/English/words.txt \
-    ../Src/Languages/Polski/letters_info.txt \
-    ../Src/Languages/Polski/words.txt \
-    ../Src/Tiles/empty_tile.png \
-    ../Src/Tiles/letterx2_tile.png \
-    ../Src/Tiles/letterx3_tile.png \
-    ../Src/Tiles/normal_tile (kopia).png \
-    ../Src/Tiles/normal_tile.png \
-    ../Src/Tiles/transparent_tile.png \
-    ../Src/Tiles/wordx2_tile.png \
-    ../Src/Tiles/wordx3_tile.png \
+    ../Resources/Languages/English/letters_info.txt \
+    ../Resources/Languages/English/words.txt \
+    ../Resources/Languages/Polski/letters_info.txt \
+    ../Resources/Languages/Polski/words.txt \
+    ../Resources/Tiles/empty_tile.png \
+    ../Resources/Tiles/letterx2_tile.png \
+    ../Resources/Tiles/letterx3_tile.png \
+    ../Resources/Tiles/normal_tile (kopia).png \
+    ../Resources/Tiles/normal_tile.png \
+    ../Resources/Tiles/transparent_tile.png \
+    ../Resources/Tiles/wordx2_tile.png \
+    ../Resources/Tiles/wordx3_tile.png \
     ../Uils/letters_info.txt

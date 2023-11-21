@@ -21,7 +21,7 @@
 #include "GameBoardModel.hpp"
 #include "ListItemDelegate.hpp"
 #include "FileReader.hpp"
-#include "LanguageHandeler.hpp"
+#include "LanguageHandler.hpp"
 #include "PolishDebugRenumberer.hpp"
 #include "PutWordOnGameBoardCommand.hpp"
 #include "EraseFromGameBoardCommand.hpp"
@@ -68,21 +68,21 @@ void MainWindow::resizeWindow()
     ui->game_board->verticalHeader()->setDefaultSectionSize(tileSize);
 }
 
-void MainWindow::setUpMainWindow(std::shared_ptr<ILanguagesHandeler> languageHandeler, const QString& language)
+void MainWindow::setUpMainWindow(std::shared_ptr<ILanguagesHandler> languageHandler, const QString& language)
 {
     uiMenu->stackedWidget->setCurrentIndex(1);
-    auto allLetters = readFile(languageHandeler->getLettersInfoFilePath(language).toStdString());
+    auto allLetters = readFile(languageHandler->getLettersInfoFilePath(language).toStdString());
 #ifndef DEBUG
     auto lettersRenumberer = std::make_shared<LettersRenumberer>(allLetters);
 #else
     auto lettersRenumberer = std::make_shared<PolishDebugRenumberer>();
 #endif
-    auto lettersInfo = std::make_shared<LettersInfo>(getLettersInfo(languageHandeler->getLettersInfoFilePath(language).toStdString(), lettersRenumberer));
-    auto textureHandeler = std::make_shared<TextureHandeler>(L"Src/Tiles/", lettersRenumberer, lettersInfo);
+    auto lettersInfo = std::make_shared<LettersInfo>(getLettersInfo(languageHandler->getLettersInfoFilePath(language).toStdString(), lettersRenumberer));
+    auto textureHandeler = std::make_shared<TextureHandeler>(L"Resources/Tiles/", lettersRenumberer, lettersInfo);
     FileReader fileReader;
 
     uiMenu->loading_bar->setValue(5);
-    auto unconvertedList = fileReader.readWordsFile(languageHandeler->getWordsFilePath(language));
+    auto unconvertedList = fileReader.readWordsFile(languageHandler->getWordsFilePath(language));
     uiMenu->loading_bar->setValue(33);
     auto listOfWords = convertFromQStringVector(unconvertedList, lettersRenumberer);
     uiMenu->loading_bar->setValue(66);
@@ -172,15 +172,15 @@ MainWindow::MainWindow(QWidget *parent)
     try
     {
 
-        LanguageHandeler l;
+        LanguageHandler l;
         for (auto language: l.getAvailableLanguages())
         uiMenu->languages_list->addItem(language);
-        auto languageHandeler = std::make_shared<LanguageHandeler>();
-        connect(uiMenu->ok_button, &QPushButton::clicked, this, [this, languageHandeler]()
+        auto languageHandler = std::make_shared<LanguageHandler>();
+        connect(uiMenu->ok_button, &QPushButton::clicked, this, [this, languageHandler]()
         {
             try
             {
-                setUpMainWindow(languageHandeler, uiMenu->languages_list->currentItem()->text());
+                setUpMainWindow(languageHandler, uiMenu->languages_list->currentItem()->text());
             }
             catch (std::runtime_error& e)
             {

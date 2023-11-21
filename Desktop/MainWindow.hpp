@@ -12,7 +12,7 @@
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; class language_window;}
 QT_END_NAMESPACE
-class ILanguagesHandeler;
+class ILanguagesHandler;
 
 class GameBoard;
 
@@ -28,7 +28,7 @@ private:
     //void resizeEvent(QResizeEvent* re) override;
     void resizeWindow();
     void showGameBoard(const GameBoard& gameBoard);
-    void setUpMainWindow(std::shared_ptr<ILanguagesHandeler> languageHandeler, const QString& str);
+    void setUpMainWindow(std::shared_ptr<ILanguagesHandler> languageHandeler, const QString& str);
     Ui::MainWindow* ui;
     Ui::language_window* uiMenu;
     std::unique_ptr<Program> program_;

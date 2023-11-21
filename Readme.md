@@ -3,7 +3,7 @@
 ![obraz](https://user-images.githubusercontent.com/23141452/142049604-e94bea39-ca5e-44bf-88b3-531d90dfdea6.png)
 
 ## IMPORTANT
-For the program to work properly, you need to put the "Src" folder in the program files into the folder with the compiled binary file.
+For the program to work properly, you need to put the "Resources" folder in the program files into the folder with the compiled binary file.
 
 ## description
 A bot, that can always find the word worth the most points in a game of Scrabble.
@@ -22,7 +22,7 @@ letters_info.txt: <br>
 ![obraz](https://user-images.githubusercontent.com/23141452/142167486-8e71b3b3-0030-4a44-a0ac-f447df5606a1.png)
 
 
-then the given 2 files should be placed in the folder <folder_with_binary_file>/Src/Languages/<language_name>/
+then the given 2 files should be placed in the folder <folder_with_binary_file>/Resources/Languages/<language_name>/
 ![obraz](https://user-images.githubusercontent.com/23141452/142051333-b45584b8-ae30-43f9-a3d2-e49d3be9bcf8.png)
 ![obraz](https://user-images.githubusercontent.com/23141452/142051353-0a573a45-83d1-4199-8c1e-9e027199ba3d.png)
 

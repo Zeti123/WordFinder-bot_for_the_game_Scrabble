@@ -1,16 +1,13 @@
-#ifndef ILANGUAGESHANDELER_HPP
-#define ILANGUAGESHANDELER_HPP
+#pragma once
 
 #include <QString>
 #include <vector>
 
-class ILanguagesHandeler
+class ILanguagesHandler
 {
 public:
-    virtual ~ILanguagesHandeler() = default;
+    virtual ~ILanguagesHandler() = default;
     virtual std::vector<QString> getAvailableLanguages() = 0;
     virtual QString getWordsFilePath(const QString& language) = 0;
     virtual QString getLettersInfoFilePath(const QString& language) = 0;
 };
-
-#endif // ILANGUAGESHANDELER_HPP
