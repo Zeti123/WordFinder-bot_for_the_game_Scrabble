@@ -14,7 +14,7 @@ wchar_t PolishDebugRenumberer::getLetterFromNum(uint8_t num)
             return let.first;
 }
 
-uint8_t PolishDebugRenumberer::getNumFromLetter(wchar_t letter)
+uint8_t PolishDebugRenumberer::getNumFromLetter(char32_t letter)
 {
     if (letter >= 'a' && letter <= 'z')
         return letter;
@@ -28,7 +28,7 @@ bool PolishDebugRenumberer::isNumberValid(uint8_t num)
     return  ((num >= 'a' && num <= 'z') || (num >= 'A' && num <= 'Z'));
 }
 
-bool PolishDebugRenumberer::isLetterValid(wchar_t letter)
+bool PolishDebugRenumberer::isLetterValid(char32_t letter)
 {
     if (letter >= 'a' && letter <= 'z')
         return true;

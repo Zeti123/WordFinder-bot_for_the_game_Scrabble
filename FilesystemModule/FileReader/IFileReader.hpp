@@ -1,5 +1,4 @@
-#ifndef IFILEREADER_HPP
-#define IFILEREADER_HPP
+#pragma once
 
 #include "Trie.hpp"
 
@@ -14,4 +13,3 @@ public:
     virtual std::vector<std::pair<QChar, std::size_t>> readLettersInfoFile(const QString& filename) = 0;
 };
 
-#endif // IFILEREADER_HPP

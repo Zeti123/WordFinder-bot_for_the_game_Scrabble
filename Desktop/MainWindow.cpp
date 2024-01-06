@@ -20,8 +20,6 @@
 #include "UserLettersDelegate.hpp"
 #include "GameBoardModel.hpp"
 #include "ListItemDelegate.hpp"
-#include "FileReader.hpp"
-#include "LanguageHandler.hpp"
 #include "PolishDebugRenumberer.hpp"
 #include "PutWordOnGameBoardCommand.hpp"
 #include "EraseFromGameBoardCommand.hpp"
@@ -35,6 +33,7 @@
 #include "TimeTraveler.hpp"
 #include "ShowWordFromListCommand.hpp"
 #include "FileReadHelpers.hpp"
+#include "FilesystemHandlerFactory.hpp"
 
 #include "AlgorithmModule/log.hpp"
 
@@ -68,23 +67,22 @@ void MainWindow::resizeWindow()
     ui->game_board->verticalHeader()->setDefaultSectionSize(tileSize);
 }
 
-void MainWindow::setUpMainWindow(std::shared_ptr<ILanguagesHandler> languageHandler, const QString& language)
+void MainWindow::setUpMainWindow(const std::unique_ptr<IFilesystemHandler>& filesystemHandler, const QString& language)
 {
     uiMenu->stackedWidget->setCurrentIndex(1);
-    auto allLetters = readFile(languageHandler->getLettersInfoFilePath(language).toStdString());
+    uiMenu->loading_bar->setValue(1);
+
+    LanguageInfo languageInfo = filesystemHandler->getLanguageInfo(language);
+    auto allLetters = getAllLetters(languageInfo);
 #ifndef DEBUG
     auto lettersRenumberer = std::make_shared<LettersRenumberer>(allLetters);
 #else
     auto lettersRenumberer = std::make_shared<PolishDebugRenumberer>();
 #endif
-    auto lettersInfo = std::make_shared<LettersInfo>(getLettersInfo(languageHandler->getLettersInfoFilePath(language).toStdString(), lettersRenumberer));
+    auto lettersInfo = std::make_shared<LettersInfo>(getLettersInfo(languageInfo, lettersRenumberer));
     auto textureHandeler = std::make_shared<TextureHandeler>(L"Resources/Tiles/", lettersRenumberer, lettersInfo);
-    FileReader fileReader;
-
-    uiMenu->loading_bar->setValue(5);
-    auto unconvertedList = fileReader.readWordsFile(languageHandler->getWordsFilePath(language));
     uiMenu->loading_bar->setValue(33);
-    auto listOfWords = convertFromQStringVector(unconvertedList, lettersRenumberer);
+    auto listOfWords = convertFromQStringVector(languageInfo.listOfWords, lettersRenumberer);
     uiMenu->loading_bar->setValue(66);
     auto threadInformer = ThreadInformer();
     auto searchEngine = SearchEngineFactory::create(listOfWords, *lettersInfo, threadInformer);
@@ -171,16 +169,16 @@ MainWindow::MainWindow(QWidget *parent)
     uiMenu->setupUi(this);
     try
     {
+        auto filesystemHandler = FilesystemHandlerFactory().create();
 
-        LanguageHandler l;
-        for (auto language: l.getAvailableLanguages())
-        uiMenu->languages_list->addItem(language);
-        auto languageHandler = std::make_shared<LanguageHandler>();
-        connect(uiMenu->ok_button, &QPushButton::clicked, this, [this, languageHandler]()
+        for (auto language: filesystemHandler->getAvailableLanguages())
+            uiMenu->languages_list->addItem(language);
+
+        connect(uiMenu->ok_button, &QPushButton::clicked, this, [this, filesystemHandler = std::move(filesystemHandler)]()
         {
             try
             {
-                setUpMainWindow(languageHandler, uiMenu->languages_list->currentItem()->text());
+                setUpMainWindow(filesystemHandler, uiMenu->languages_list->currentItem()->text());
             }
             catch (std::runtime_error& e)
             {
@@ -204,13 +202,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-/*void MainWindow::resizeEvent(QResizeEvent*)
-{
-    std::size_t tileSize = std::ceil((std::max(ui->game_board->width(), ui->game_board->height())-2) / 15.0);
-    ui->game_board->horizontalHeader()->setDefaultSectionSize(tileSize);
-    ui->game_board->verticalHeader()->setDefaultSectionSize(tileSize);
-}*/
 
 
 

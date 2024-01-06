@@ -1,23 +1,24 @@
 #include "FileReadHelpers.hpp"
+#include "LanguageInfo.hpp"
 
-LettersInfo getLettersInfo(const std::string& filename, std::shared_ptr<ILettersRenumberer> renumberer)
+LettersInfo getLettersInfo(const LanguageInfo& languageInfo, std::shared_ptr<ILettersRenumberer> renumberer)
 {
     std::vector<std::pair<char, std::size_t>> letters;
-    FileReader reader;
-    auto loadedLetters = reader.readLettersInfoFile(QString::fromStdString(filename));
-    for (auto letter: loadedLetters)
+
+    for (auto letter: languageInfo.lettersInfo)
         letters.push_back(std::make_pair(renumberer->getNumFromLetter(letter.first.unicode()), letter.second));
+
     return LettersInfo(letters);
 }
 
-std::vector<wchar_t> readFile(const std::string& filename)
+std::vector<char32_t> getAllLetters(const LanguageInfo& languageInfo)
 {
-    std::vector<wchar_t> ret;
-    FileReader reader;
-    auto letters = reader.readLettersInfoFile(QString::fromStdString(filename));
-    for (auto letter: letters)
-        ret.push_back(letter.first.unicode());
-    return ret;
+    std::vector<char32_t> allLetters;
+
+    for (auto& [letter, _]: languageInfo.lettersInfo)
+        allLetters.push_back(letter.unicode());
+
+    return allLetters;
 
 }
 

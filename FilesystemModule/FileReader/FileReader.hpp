@@ -1,5 +1,4 @@
-#ifndef FILEREADER_HPP
-#define FILEREADER_HPP
+#pragma once
 
 #include "IFileReader.hpp"
 
@@ -14,5 +13,3 @@ public:
 private:
     QString readToString(const QString& filename);
 };
-
-#endif // FILEREADER_HPP

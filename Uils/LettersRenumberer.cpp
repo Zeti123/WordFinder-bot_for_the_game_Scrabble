@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-LettersRenumberer::LettersRenumberer(const std::vector<wchar_t>& letters)
+LettersRenumberer::LettersRenumberer(const std::vector<char32_t>& letters)
     :numToLetter_({}), letterToNum_({}), counter_(0)
 {
     for (auto letter: letters)
@@ -24,7 +24,7 @@ wchar_t LettersRenumberer::getLetterFromNum(uint8_t num)
     return numToLetter_[num];
 }
 
-uint8_t LettersRenumberer::getNumFromLetter(wchar_t letter)
+uint8_t LettersRenumberer::getNumFromLetter(char32_t letter)
 {
     if (letterToNum_.find(letter) == letterToNum_.end())
         std::runtime_error("there is no letter: " + std::to_string(letter));
@@ -37,7 +37,7 @@ bool LettersRenumberer::isNumberValid(uint8_t num)
     return num < counter_;
 }
 
-bool LettersRenumberer::isLetterValid(wchar_t letter)
+bool LettersRenumberer::isLetterValid(char32_t letter)
 {
     return letterToNum_.find(letter) != letterToNum_.end();
 }

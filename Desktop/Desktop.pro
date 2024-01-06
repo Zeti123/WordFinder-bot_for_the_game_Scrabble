@@ -21,8 +21,10 @@ SOURCES += \
     ../AlgorithmModule/SearchAlgorithm/TrieSearchAlgorithm.cpp \
     ../AlgorithmModule/SearchEngineFactory.cpp \
     ../AlgorithmModule/log.cpp \
-    ../FilesystemModule/FileReader.cpp \
-    ../FilesystemModule/LanguageHandler.cpp \
+    ../FilesystemModule/FileReader/FileReader.cpp \
+    ../FilesystemModule/FilesystemHandler.cpp \
+    ../FilesystemModule/FilesystemHandlerFactory.cpp \
+    ../FilesystemModule/LanguageHandler/LanguageHandler.cpp \
     ../Program.cpp \
     ../UIModule/GameBoard/GameBoardDelegate.cpp \
     ../UIModule/GameBoard/GameBoardModel.cpp \
@@ -81,9 +83,17 @@ HEADERS += \
     ../AlgorithmModule/SearchEngineFactory.hpp \
     ../AlgorithmModule/log.hpp \
     ../FilesystemModule/FileReader.hpp \
+    ../FilesystemModule/FileReader/FileReader.hpp \
+    ../FilesystemModule/FileReader/IFileReader.hpp \
+    ../FilesystemModule/FilesystemHandler.hpp \
+    ../FilesystemModule/FilesystemHandlerFactory.hpp \
     ../FilesystemModule/IFileReader.hpp \
+    ../FilesystemModule/IFilesystemHandler.hpp \
     ../FilesystemModule/ILanguagesHandler.hpp \
     ../FilesystemModule/LanguageHandler.hpp \
+    ../FilesystemModule/LanguageHandler/ILanguagesHandler.hpp \
+    ../FilesystemModule/LanguageHandler/LanguageHandler.hpp \
+    ../FilesystemModule/LanguageInfo.hpp \
     ../Program.hpp \
     ../UIModule/GameBoard/GameBoardDelegate.hpp \
     ../UIModule/GameBoard/GameBoardModel.hpp \
@@ -145,6 +155,8 @@ INCLUDEPATH += \
     $$PWD/../AlgorithmModule/SearchAlgorithm \
     $$PWD/../Desktop \
     $$PWD/../FilesystemModule \
+    $$PWD/../FilesystemModule/FileReader \
+    $$PWD/../FilesystemModule/LanguageHandler \
     $$PWD/../UIModule \
     $$PWD/../UIModule/ResultsList \
     $$PWD/../UIModule/UiStateChangers \

@@ -9,9 +9,9 @@ class ILettersRenumberer
 public:
     virtual ~ILettersRenumberer() = default;
     virtual wchar_t getLetterFromNum(uint8_t num) = 0;
-    virtual uint8_t getNumFromLetter(wchar_t letter) = 0;
+    virtual uint8_t getNumFromLetter(char32_t letter) = 0;
     virtual bool isNumberValid(uint8_t num) = 0;
-    virtual bool isLetterValid(wchar_t letter) = 0;
+    virtual bool isLetterValid(char32_t letter) = 0;
 };
 
 #endif // ILETTERSRENUMBER_HPP
