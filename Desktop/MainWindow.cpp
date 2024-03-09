@@ -2,7 +2,6 @@
 #include "ui_MainWindow.h"
 #include "ui_language_window.h"
 
-#include "TableViewBasedGameBoard.hpp"
 #include "UiController.hpp"
 #include "Program.hpp"
 #include "LineTextScrabbleTextEdit.hpp"
@@ -11,15 +10,11 @@
 #include "IUserLettersDisplay.hpp"
 #include "ListViewBasedUserLetters.hpp"
 #include "UserLettersAdder.hpp"
-#include "ScrabbleWordsList.hpp"
 #include "SearchEngineFactory.hpp"
-#include "GameBoardDelegate.hpp"
 #include "LettersRenumberer.hpp"
-#include "TextureHandeler.hpp"
+#include "TextureHandler.hpp"
 #include "UserLettersModel.hpp"
 #include "UserLettersDelegate.hpp"
-#include "GameBoardModel.hpp"
-#include "ListItemDelegate.hpp"
 #include "PolishDebugRenumberer.hpp"
 #include "PutWordOnGameBoardCommand.hpp"
 #include "EraseFromGameBoardCommand.hpp"
@@ -34,6 +29,9 @@
 #include "ShowWordFromListCommand.hpp"
 #include "FileReadHelpers.hpp"
 #include "FilesystemHandlerFactory.hpp"
+
+#include "GameBoardDisplayFactory.hpp"
+#include "ResultsListsFactory.hpp"
 
 #include "AlgorithmModule/log.hpp"
 
@@ -80,7 +78,7 @@ void MainWindow::setUpMainWindow(const std::unique_ptr<IFilesystemHandler>& file
     auto lettersRenumberer = std::make_shared<PolishDebugRenumberer>();
 #endif
     auto lettersInfo = std::make_shared<LettersInfo>(getLettersInfo(languageInfo, lettersRenumberer));
-    auto textureHandeler = std::make_shared<TextureHandeler>(L"Resources/Tiles/", lettersRenumberer, lettersInfo);
+    auto textureHandler = std::make_shared<TextureHandler>(L"Resources/Tiles/", lettersRenumberer, lettersInfo);
     uiMenu->loading_bar->setValue(33);
     auto listOfWords = convertFromQStringVector(languageInfo.listOfWords, lettersRenumberer);
     uiMenu->loading_bar->setValue(66);
@@ -89,40 +87,15 @@ void MainWindow::setUpMainWindow(const std::unique_ptr<IFilesystemHandler>& file
     uiMenu->loading_bar->setValue(100);
     ui->setupUi(this);
 
-    ui->list_of_words->setItemDelegate(new ListItemDelegate(ui->list_of_words));
-    ui->list_of_words->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {"
-                                                          "border: 0px solid grey;"
-                                                          "background: #006f65;"
-                                                          "}"
-                                                          "QScrollBar::handle:vertical {"
-                                                              "background: #00a49a;"
-                                                              "min-height: 40px;"
-                                                          "}"
-                                                          "QScrollBar::add-line:vertical {"
-                                                               "border: none;"
-                                                               "background: none;"
-                                                          "}"
-                                                          "QScrollBar::sub-line:vertical {"
-                                                              "border: none;"
-                                                              "background: none;"
-                                                          "}");
 
-
-    auto model = new GameBoardModel({});
-    auto table = ui->game_board;
-    table->setModel(model);
-    table->setItemDelegate(new GameBoardDelegate(textureHandeler, ui->game_board));
-    table->setSelectionBehavior( QAbstractItemView::SelectItems );
-    table->setSelectionMode( QAbstractItemView::SingleSelection );
-    table->resize(58*15 + 2, 58*15 + 2);
-
-    ui->user_letters->setItemDelegate(new UserLettersDelegate(textureHandeler));
+    ui->user_letters->setItemDelegate(new UserLettersDelegate(textureHandler));
     ui->user_letters->setModel(new UserLettersModel());
 
-    auto wordsList = std::make_shared<ScrabbleWordsList>(*ui->list_of_words, lettersRenumberer);
     auto searchBar = std::make_shared<LineTextScrabbleTextEdit>(*ui->search_bar, lettersRenumberer);
 
-    auto board = std::make_shared<TableViewBasedGameBoard>(*table);
+    auto wordsList = ResultsListsFactory().create(*ui->list_of_words, lettersRenumberer);
+
+    auto board = GameBoardDisplayFactory().create(*ui->game_board, textureHandler);
     auto newWordLineEdit = std::make_shared<LineTextScrabbleTextEdit>(*ui->word_adder, lettersRenumberer);
     auto orientationSwitch = std::make_shared<RadioButtonSwitch>(*ui->orientation_vertical, *ui->orientation_horizontal, false);
     auto userLettersDisplay = std::make_shared<ListViewBasedUserLetters>(*ui->user_letters);

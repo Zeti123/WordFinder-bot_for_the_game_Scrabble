@@ -27,9 +27,11 @@ SOURCES += \
     ../FilesystemModule/LanguageHandler/LanguageHandler.cpp \
     ../Program.cpp \
     ../UIModule/GameBoard/GameBoardDelegate.cpp \
+    ../UIModule/GameBoard/GameBoardDisplayFactory.cpp \
     ../UIModule/GameBoard/GameBoardModel.cpp \
     ../UIModule/GameBoard/TableViewBasedGameBoard.cpp \
     ../UIModule/ResultsList/ListItemDelegate.cpp \
+    ../UIModule/ResultsList/ResultsListsFactory.cpp \
     ../UIModule/ResultsList/ScrabbleWordsList.cpp \
     ../UIModule/UiController.cpp \
     ../UIModule/UiStateChangers/GameBoardTilesEraser/EraseFromGameBoardCommand.cpp \
@@ -51,7 +53,7 @@ SOURCES += \
     ../UIModule/Utils/Controls/LineTextScrabbleTextEdit.cpp \
     ../UIModule/Utils/Controls/RadioButtonSwitch.cpp \
     ../UIModule/Utils/SlotsBlocker.cpp \
-    ../UIModule/Utils/TextureHandeler.cpp \
+    ../UIModule/Utils/TextureHandler.cpp \
     ../Uils/CommonDataStructures/GameBoard.cpp \
     ../Uils/CommonDataStructures/ScrabbleString.cpp \
     ../Uils/CommonDataStructures/WordPlacement.cpp \
@@ -96,12 +98,14 @@ HEADERS += \
     ../FilesystemModule/LanguageInfo.hpp \
     ../Program.hpp \
     ../UIModule/GameBoard/GameBoardDelegate.hpp \
+    ../UIModule/GameBoard/GameBoardDisplayFactory.hpp \
     ../UIModule/GameBoard/GameBoardModel.hpp \
     ../UIModule/GameBoard/IGameBoardDisplay.hpp \
     ../UIModule/GameBoard/TableViewBasedGameBoard.hpp \
     ../UIModule/IUiController.hpp \
     ../UIModule/ResultsList/IList.hpp \
     ../UIModule/ResultsList/ListItemDelegate.hpp \
+    ../UIModule/ResultsList/ResultsListsFactory.hpp \
     ../UIModule/ResultsList/ScrabbleWordsList.hpp \
     ../UIModule/UiController.hpp \
     ../UIModule/UiStateChangers/GameBoardTilesEraser/EraseFromGameBoardCommand.hpp \
@@ -129,9 +133,9 @@ HEADERS += \
     ../UIModule/Utils/Controls/ISwitch.hpp \
     ../UIModule/Utils/Controls/LineTextScrabbleTextEdit.hpp \
     ../UIModule/Utils/Controls/RadioButtonSwitch.hpp \
-    ../UIModule/Utils/ITextureHandeler.hpp \
+    ../UIModule/Utils/ITextureHandler.hpp \
     ../UIModule/Utils/SlotsBlocker.hpp \
-    ../UIModule/Utils/TextureHandeler.hpp \
+    ../UIModule/Utils/TextureHandler.hpp \
     ../Uils/CommonDataStructures/GameBoard.hpp \
     ../Uils/CommonDataStructures/ScrabbleString.hpp \
     ../Uils/CommonDataStructures/WordPlacement.hpp \

@@ -22,6 +22,7 @@ public:
 private:
     void updateDisplay(const GameBoard& gameBoard);
     void setBackgroundColor(const QModelIndex& modelIndex, const GameBoardTile& currentGameBoardTile, const GameBoardTile& gameBoardTileToDisplay);
+
     QTableView& tableView_;
     GameBoard gameBoard_;
     GameBoard viewdGameBoard_;

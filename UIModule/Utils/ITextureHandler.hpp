@@ -1,10 +1,10 @@
-#ifndef ITEXTUREHANDELER_HPP
-#define ITEXTUREHANDELER_HPP
+#ifndef ITEXTUREHANDLER_H
+#define ITEXTUREHANDLER_H
 
 #include <cstdint>
 #include <QPixmap>
 
-class ITextureHandeler
+class ITextureHandler
 {
 public:
     enum class FieldTextureType
@@ -24,4 +24,4 @@ public:
     virtual QPixmap getEmptyTileForLetter(u_int8_t textureNum) = 0;
 };
 
-#endif // ITEXTUREHANDELER_HPP
+#endif // ITEXTUREHANDLER_H

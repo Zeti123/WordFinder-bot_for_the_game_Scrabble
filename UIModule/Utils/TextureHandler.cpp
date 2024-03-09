@@ -1,11 +1,11 @@
-#include "TextureHandeler.hpp"
+#include "TextureHandler.hpp"
 
 #include <fstream>
 
 #include <QPainter>
 #include <QPaintEngine>
 
-TextureHandeler::TextureHandeler(const std::wstring& texturesPath, std::shared_ptr<ILettersRenumberer> renumberer, std::shared_ptr<LettersInfo> lettersInfo)
+TextureHandler::TextureHandler(const std::wstring& texturesPath, std::shared_ptr<ILettersRenumberer> renumberer, std::shared_ptr<LettersInfo> lettersInfo)
     :renumberer_(renumberer), lettersInfo_(lettersInfo)
 {
     const std::vector<std::wstring> fileFiledNames = {L"transparment_tile", L"empty_tile", L"normal_tile", L"letterx2_tile", L"letterx3_tile", L"wordx2_tile", L"wordx3_tile"};
@@ -19,7 +19,7 @@ TextureHandeler::TextureHandeler(const std::wstring& texturesPath, std::shared_p
     }
 }
 
-QPixmap TextureHandeler::getLetterTexture(uint8_t textureNum)
+QPixmap TextureHandler::getLetterTexture(uint8_t textureNum)
 {
     if (!renumberer_->isNumberValid(textureNum))
         std::runtime_error("no letter with number: " + std::to_string(textureNum));
@@ -33,12 +33,12 @@ QPixmap TextureHandeler::getLetterTexture(uint8_t textureNum)
     return emptyTextureCopy;
 }
 
-QPixmap& TextureHandeler::getTileTexture(ITextureHandeler::FieldTextureType textureType)
+QPixmap& TextureHandler::getTileTexture(ITextureHandler::FieldTextureType textureType)
 {
     return tileBuffer_[static_cast<int>(textureType)];
 }
 
-QPixmap TextureHandeler::getEmptyTileForLetter(u_int8_t textureNum)
+QPixmap TextureHandler::getEmptyTileForLetter(u_int8_t textureNum)
 {
     if (!renumberer_->isNumberValid(textureNum))
         std::runtime_error("no letter with number: " + std::to_string(textureNum));
@@ -51,7 +51,7 @@ QPixmap TextureHandeler::getEmptyTileForLetter(u_int8_t textureNum)
     return emptyTextureCopy;
 }
 
-void TextureHandeler::drawCharOnTexture(QPixmap& pixmap, QChar ch, uint8_t letterScore, QColor color)
+void TextureHandler::drawCharOnTexture(QPixmap& pixmap, QChar ch, uint8_t letterScore, QColor color)
 {
     QPainter painter(&pixmap);
     painter.setPen(color);
