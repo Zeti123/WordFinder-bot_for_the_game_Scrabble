@@ -1,6 +1,5 @@
 #include "UiController.hpp"
 #include "GameBoard.hpp"
-#include "ScrabbleString.hpp"
 #include "IGameBoardDisplay.hpp"
 
 UiController::UiController(std::shared_ptr<IGameBoardDisplay> gameBoardDisplay, std::shared_ptr<IUserLettersDisplay> userLettersDisplay,

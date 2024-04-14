@@ -1,5 +1,4 @@
-#ifndef ERASEFROMGAMEBOARDCOMMAND_HPP
-#define ERASEFROMGAMEBOARDCOMMAND_HPP
+#pragma once
 
 #include "IReversableCommand.hpp"
 #include "IGameBoardDisplay.hpp"
@@ -18,5 +17,3 @@ private:
     GameBoardTile lastErasedTile_;
     std::pair<uint8_t, uint8_t> lastSelected_;
 };
-
-#endif // ERASEFROMGAMEBOARDCOMMAND_HPP

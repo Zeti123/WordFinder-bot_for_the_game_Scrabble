@@ -2,6 +2,8 @@
 
 #include "IFilesystemHandler.hpp"
 
+#include <memory>
+
 #include "IFileReader.hpp"
 #include "ILanguagesHandler.hpp"
 

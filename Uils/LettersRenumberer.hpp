@@ -1,9 +1,7 @@
-#ifndef LETTERSRENUMBERER_HPP
-#define LETTERSRENUMBERER_HPP
+#pragma once
 
 #include "ILettersRenumberer.hpp"
 
-#include <string>
 #include <array>
 #include <vector>
 #include <unordered_map>
@@ -22,5 +20,3 @@ private:
     std::unordered_map<char32_t, uint8_t> letterToNum_;
     std::size_t counter_;
 };
-
-#endif // LETTERSRENUMBERER_HPP

@@ -2,8 +2,10 @@
 
 #include "IFilesystemHandler.hpp"
 
+#include <memory>
+
 class FilesystemHandlerFactory
 {
 public:
-    std::unique_ptr<IFilesystemHandler> create();
+    static std::unique_ptr<IFilesystemHandler> create();
 };

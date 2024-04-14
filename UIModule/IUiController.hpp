@@ -1,13 +1,9 @@
 #ifndef IGAMEBOARDCONTROLLER_HPP
 #define IGAMEBOARDCONTROLLER_HPP
 
-#include "ScrabbleString.hpp"
-#include "IGameBoardDisplay.hpp"
 #include "IUserLettersDisplay.hpp"
 
 #include "AlgorithmModule/ScrabbleSearchEngineResult.hpp"
-
-#include <memory>
 
 #include <QObject>
 

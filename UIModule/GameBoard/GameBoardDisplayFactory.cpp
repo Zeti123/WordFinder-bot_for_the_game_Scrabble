@@ -13,7 +13,6 @@ std::shared_ptr<IGameBoardDisplay> GameBoardDisplayFactory::create(QTableView& t
     tableView.setItemDelegate(new GameBoardDelegate(textureHandler, &tableView));
     tableView.setSelectionBehavior( QAbstractItemView::SelectItems );
     tableView.setSelectionMode( QAbstractItemView::SingleSelection );
-    tableView.resize(58*15 + 2, 58*15 + 2);
 
     return std::make_shared<TableViewBasedGameBoard>(tableView);
 }

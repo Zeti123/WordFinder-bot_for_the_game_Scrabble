@@ -36,18 +36,24 @@ SOURCES += \
     ../UIModule/UiController.cpp \
     ../UIModule/UiStateChangers/GameBoardTilesEraser/EraseFromGameBoardCommand.cpp \
     ../UIModule/UiStateChangers/GameBoardTilesEraser/GameBoardTilesEraser.cpp \
+    ../UIModule/UiStateChangers/GameBoardTilesEraser/GameBoardTilesEraserFactory.cpp \
     ../UIModule/UiStateChangers/NewWordAdder/Commands/PutAndSaveWordOnGameBoardCommand.cpp \
     ../UIModule/UiStateChangers/NewWordAdder/Commands/PutWordOnGameBoardCommand.cpp \
     ../UIModule/UiStateChangers/NewWordAdder/NewWordAdder.cpp \
+    ../UIModule/UiStateChangers/NewWordAdder/NewWordAdderFactory.cpp \
     ../UIModule/UiStateChangers/TimeTraveler/TimeTraveler.cpp \
+    ../UIModule/UiStateChangers/UiStateChangersFactory.cpp \
     ../UIModule/UiStateChangers/UserLettersAdder/Commands/SetUserLettersCommand.cpp \
     ../UIModule/UiStateChangers/UserLettersAdder/Commands/ShowUserLettersCommand.cpp \
     ../UIModule/UiStateChangers/UserLettersAdder/UserLettersAdder.cpp \
+    ../UIModule/UiStateChangers/UserLettersAdder/UserLettersAdderFactory.cpp \
     ../UIModule/UiStateChangers/WordsFromListAdder/Commands/SelectWordFromListCommand.cpp \
     ../UIModule/UiStateChangers/WordsFromListAdder/Commands/ShowWordFromListCommand.cpp \
     ../UIModule/UiStateChangers/WordsFromListAdder/SearchListController.cpp \
+    ../UIModule/UiStateChangers/WordsFromListAdder/WordsFromListAdderFactory.cpp \
     ../UIModule/UserLetters/ListViewBasedUserLetters.cpp \
     ../UIModule/UserLetters/UserLettersDelegate.cpp \
+    ../UIModule/UserLetters/UserLettersFactory.cpp \
     ../UIModule/UserLetters/UserLettersModel.cpp \
     ../UIModule/Utils/Commands/CommandListManager.cpp \
     ../UIModule/Utils/Controls/LineTextScrabbleTextEdit.cpp \
@@ -110,20 +116,26 @@ HEADERS += \
     ../UIModule/UiController.hpp \
     ../UIModule/UiStateChangers/GameBoardTilesEraser/EraseFromGameBoardCommand.hpp \
     ../UIModule/UiStateChangers/GameBoardTilesEraser/GameBoardTilesEraser.hpp \
+    ../UIModule/UiStateChangers/GameBoardTilesEraser/GameBoardTilesEraserFactory.hpp \
     ../UIModule/UiStateChangers/IUiStateChanger.hpp \
     ../UIModule/UiStateChangers/NewWordAdder/Commands/PutAndSaveWordOnGameBoardCommand.hpp \
     ../UIModule/UiStateChangers/NewWordAdder/Commands/PutWordOnGameBoardCommand.hpp \
     ../UIModule/UiStateChangers/NewWordAdder/NewWordAdder.hpp \
+    ../UIModule/UiStateChangers/NewWordAdder/NewWordAdderFactory.hpp \
     ../UIModule/UiStateChangers/TimeTraveler/TimeTraveler.hpp \
+    ../UIModule/UiStateChangers/UiStateChangersFactory.hpp \
     ../UIModule/UiStateChangers/UserLettersAdder/Commands/SetUserLettersCommand.hpp \
     ../UIModule/UiStateChangers/UserLettersAdder/Commands/ShowUserLettersCommand.hpp \
     ../UIModule/UiStateChangers/UserLettersAdder/UserLettersAdder.hpp \
+    ../UIModule/UiStateChangers/UserLettersAdder/UserLettersAdderFactory.hpp \
     ../UIModule/UiStateChangers/WordsFromListAdder/Commands/SelectWordFromListCommand.hpp \
     ../UIModule/UiStateChangers/WordsFromListAdder/Commands/ShowWordFromListCommand.hpp \
     ../UIModule/UiStateChangers/WordsFromListAdder/SearchListController.hpp \
+    ../UIModule/UiStateChangers/WordsFromListAdder/WordsFromListAdderFactory.hpp \
     ../UIModule/UserLetters/IUserLettersDisplay.hpp \
     ../UIModule/UserLetters/ListViewBasedUserLetters.hpp \
     ../UIModule/UserLetters/UserLettersDelegate.hpp \
+    ../UIModule/UserLetters/UserLettersFactory.hpp \
     ../UIModule/UserLetters/UserLettersModel.hpp \
     ../UIModule/Utils/Commands/CommandListManager.hpp \
     ../UIModule/Utils/Commands/ICommand.hpp \

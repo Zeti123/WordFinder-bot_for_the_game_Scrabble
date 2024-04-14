@@ -10,5 +10,5 @@
 class ResultsListsFactory
 {
 public:
-    std::shared_ptr<IList> create(QListWidget& list, std::shared_ptr<ILettersRenumberer> renumberer);
+    static std::shared_ptr<IList> create(QListWidget& list, std::shared_ptr<ILettersRenumberer> renumberer);
 };

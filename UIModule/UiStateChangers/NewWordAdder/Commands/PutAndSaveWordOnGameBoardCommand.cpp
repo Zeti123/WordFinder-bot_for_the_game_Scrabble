@@ -1,7 +1,7 @@
 #include "PutAndSaveWordOnGameBoardCommand.hpp"
 
 PutAndSaveWordOnGameBoardCommand::PutAndSaveWordOnGameBoardCommand(std::shared_ptr<IGameBoardDisplay> gameBoard, std::shared_ptr<IScrabbleTextEdit> textEdit,
-                                                           std::shared_ptr<ISwitch> orientationSwitch)
+                                                                   std::shared_ptr<ISwitch> orientationSwitch)
     :gameBoard_(gameBoard), textEdit_(textEdit), orientationSwitch_(orientationSwitch), lastSelected_({}, {}, {}), prevTiles_() { }
 
 bool PutAndSaveWordOnGameBoardCommand::execute()

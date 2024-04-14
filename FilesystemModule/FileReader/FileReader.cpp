@@ -4,6 +4,7 @@
 
 #include <QFile>
 #include <QTextStream>
+#include <QString>
 
 std::vector<QString> FileReader::readWordsFile(const QString& filename)
 {

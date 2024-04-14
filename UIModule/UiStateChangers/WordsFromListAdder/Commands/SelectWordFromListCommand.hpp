@@ -1,5 +1,4 @@
-#ifndef SELECTWORDFROMLISTCOMMAND_HPP
-#define SELECTWORDFROMLISTCOMMAND_HPP
+#pragma once
 
 #include "IReversableCommand.hpp"
 #include "IList.hpp"
@@ -26,4 +25,3 @@ private:
     std::vector<GameBoardTile> prevTiles_;
 };
 
-#endif // SELECTWORDFROMLISTCOMMAND_HPP

@@ -4,36 +4,16 @@
 
 #include "UiController.hpp"
 #include "Program.hpp"
-#include "LineTextScrabbleTextEdit.hpp"
-#include "RadioButtonSwitch.hpp"
-#include "NewWordAdder.hpp"
-#include "IUserLettersDisplay.hpp"
-#include "ListViewBasedUserLetters.hpp"
-#include "UserLettersAdder.hpp"
 #include "SearchEngineFactory.hpp"
 #include "LettersRenumberer.hpp"
 #include "TextureHandler.hpp"
-#include "UserLettersModel.hpp"
-#include "UserLettersDelegate.hpp"
 #include "PolishDebugRenumberer.hpp"
-#include "PutWordOnGameBoardCommand.hpp"
-#include "EraseFromGameBoardCommand.hpp"
-#include "SelectWordFromListCommand.hpp"
-#include "PutAndSaveWordOnGameBoardCommand.hpp"
-#include "CommandListManager.hpp"
-#include "GameBoardTilesEraser.hpp"
-#include "SetUserLettersCommand.hpp"
-#include "ShowUserLettersCommand.hpp"
-#include "SearchListController.hpp"
-#include "TimeTraveler.hpp"
-#include "ShowWordFromListCommand.hpp"
 #include "FileReadHelpers.hpp"
 #include "FilesystemHandlerFactory.hpp"
-
+#include "UserLettersFactory.hpp"
 #include "GameBoardDisplayFactory.hpp"
 #include "ResultsListsFactory.hpp"
-
-#include "AlgorithmModule/log.hpp"
+#include "UiStateChangersFactory.hpp"
 
 #include <cmath>
 
@@ -87,48 +67,12 @@ void MainWindow::setUpMainWindow(const std::unique_ptr<IFilesystemHandler>& file
     uiMenu->loading_bar->setValue(100);
     ui->setupUi(this);
 
+    auto wordsList = ResultsListsFactory::create(*ui->list_of_words, lettersRenumberer);
 
-    ui->user_letters->setItemDelegate(new UserLettersDelegate(textureHandler));
-    ui->user_letters->setModel(new UserLettersModel());
+    auto board = GameBoardDisplayFactory::create(*ui->game_board, textureHandler);
+    auto userLettersDisplay = UserLettersFactory::create(*ui->user_letters, textureHandler);
 
-    auto searchBar = std::make_shared<LineTextScrabbleTextEdit>(*ui->search_bar, lettersRenumberer);
-
-    auto wordsList = ResultsListsFactory().create(*ui->list_of_words, lettersRenumberer);
-
-    auto board = GameBoardDisplayFactory().create(*ui->game_board, textureHandler);
-    auto newWordLineEdit = std::make_shared<LineTextScrabbleTextEdit>(*ui->word_adder, lettersRenumberer);
-    auto orientationSwitch = std::make_shared<RadioButtonSwitch>(*ui->orientation_vertical, *ui->orientation_horizontal, false);
-    auto userLettersDisplay = std::make_shared<ListViewBasedUserLetters>(*ui->user_letters);
-    auto scrabbleTextEdit = std::make_shared<LineTextScrabbleTextEdit>(*ui->user_letters_line_edit, lettersRenumberer, true);
-
-    auto commandList = std::make_shared<CommandListManager>();
-    auto eraseFromGameBoardCommand = std::make_shared<EraseFromGameBoardCommand>(board);
-    auto putWordOnGameBoardCommand = std::make_shared<PutWordOnGameBoardCommand>(board, newWordLineEdit, orientationSwitch);
-    auto putAndSaveWordOnGameBoardCommand = std::make_shared<PutAndSaveWordOnGameBoardCommand>(board, newWordLineEdit, orientationSwitch);
-    auto showWordFromListCommand = std::make_shared<ShowWordFromListCommand>(board, wordsList);
-    auto selectWordFromListCommand = std::make_shared<SelectWordFromListCommand>(board, wordsList);
-    auto setUserLettersCommand = std::make_shared<SetUserLettersCommand>(userLettersDisplay, scrabbleTextEdit);
-    auto showUserLettersCommand = std::make_shared<ShowUserLettersCommand>(userLettersDisplay, scrabbleTextEdit);
-
-    auto eraseSwitch = std::make_shared<RadioButtonSwitch>(*ui->erase_on, *ui->erase_of, false);
-    auto gameBoardTilesEraser = std::make_shared<GameBoardTilesEraser>(eraseSwitch, eraseFromGameBoardCommand, commandList);
-    connect(board.get(), &IGameBoardDisplay::selectionChanged, gameBoardTilesEraser.get(), &GameBoardTilesEraser::receiveGameBoardSelectionChange);
-
-    auto newWordAdder = std::make_shared<NewWordAdder>(orientationSwitch, newWordLineEdit, putWordOnGameBoardCommand, putAndSaveWordOnGameBoardCommand, commandList);
-    connect(ui->new_word_apply, &QPushButton::clicked, newWordAdder.get(), &NewWordAdder::receiveApplyClick);
-    connect(board.get(), &IGameBoardDisplay::selectionChanged, newWordAdder.get(), &NewWordAdder::receiveGameBoardSelectionChange);
-
-    auto userLettersAdder = std::make_shared<UserLettersAdder>(scrabbleTextEdit, showUserLettersCommand, setUserLettersCommand, commandList);
-    connect(ui->user_letters_apply, &QPushButton::clicked, userLettersAdder.get(), &UserLettersAdder::receiveApplyClick);
-
-    auto searchListController = std::make_shared<SearchListController>(searchBar, wordsList, showWordFromListCommand, selectWordFromListCommand, commandList);
-    connect(ui->search_apply, &QPushButton::clicked, searchListController.get(), &SearchListController::receiveApply);
-
-    auto undoShortcut = std::make_unique<QShortcut>(QKeySequence(Qt::CTRL | Qt::Key_Z), this);
-    auto redoShortcut = std::make_unique<QShortcut>(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_Z), this);
-    auto timeTraveler = std::make_shared<TimeTraveler>(*ui->undo, *ui->redo, commandList, std::move(undoShortcut), std::move(redoShortcut));
-
-    std::vector<std::shared_ptr<IUiStateChanger>> stateChangers = {newWordAdder, gameBoardTilesEraser, userLettersAdder, searchListController, timeTraveler};
+    auto stateChangers = UiStateChangersFactory::create(*this, *ui, lettersRenumberer, board, userLettersDisplay, wordsList);
     auto gameBoardController = std::make_unique<UiController>(board, userLettersDisplay, wordsList, stateChangers);
     program_ = std::make_unique<Program>(std::move(gameBoardController), std::move(searchEngine), threadInformer);
     resizeWindow();

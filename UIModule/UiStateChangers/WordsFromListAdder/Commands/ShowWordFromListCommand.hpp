@@ -1,5 +1,4 @@
-#ifndef SHOWWORDFROMLISTCOMMAND_HPP
-#define SHOWWORDFROMLISTCOMMAND_HPP
+#pragma once
 
 #include "ICommand.hpp"
 #include "IList.hpp"
@@ -17,5 +16,3 @@ private:
     std::shared_ptr<IGameBoardDisplay> display_;
     std::shared_ptr<IList> list_;
 };
-
-#endif // SHOWWORDFROMLISTCOMMAND_HPP

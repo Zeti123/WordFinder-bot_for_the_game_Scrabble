@@ -1,5 +1,7 @@
 #include "UserLettersDelegate.hpp"
 
+#include <optional>
+
 #include <QPainter>
 
 Q_DECLARE_METATYPE(std::optional<ScrabbleLetter>)

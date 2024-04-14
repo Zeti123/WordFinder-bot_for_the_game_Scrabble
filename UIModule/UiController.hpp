@@ -1,8 +1,9 @@
-#ifndef GAMEBOARDCONTROLLER_HPP
-#define GAMEBOARDCONTROLLER_HPP
+#pragma once
+
+#include <memory>
 
 #include "IUiController.hpp"
-#include "IReversableCommand.hpp"
+#include "IGameBoardDisplay.hpp"
 #include "IUiStateChanger.hpp"
 #include "IUserLettersDisplay.hpp"
 #include "IList.hpp"
@@ -33,5 +34,3 @@ private slots:
     void receiveGameBoardChange(const GameBoard& gameBoard);
     void receiveUserLettersChange(const IUserLettersDisplay::DataType& userLetters);
 };
-
-#endif // GAMEBOARDCONTROLLER_HPP

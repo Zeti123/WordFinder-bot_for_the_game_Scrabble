@@ -1,6 +1,4 @@
-#ifndef NEWWORDADDER_HPP
-#define NEWWORDADDER_HPP
-
+#pragma once
 #include "IUiStateChanger.hpp"
 #include "ISwitch.hpp"
 #include "IScrabbleTextEdit.hpp"
@@ -34,5 +32,3 @@ private slots:
     void receiveSwitchChange();
     void receiveTextChange();
 };
-
-#endif // NEWWORDADDER_HPP

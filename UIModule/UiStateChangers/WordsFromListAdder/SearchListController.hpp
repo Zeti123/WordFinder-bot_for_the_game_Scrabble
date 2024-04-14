@@ -1,5 +1,4 @@
-#ifndef SEARCHLISTCONTROLLER_HPP
-#define SEARCHLISTCONTROLLER_HPP
+#pragma once
 
 #include "IUiStateChanger.hpp"
 #include "IScrabbleTextEdit.hpp"
@@ -34,5 +33,3 @@ private slots:
     void receiveClick();
     void receiveDoubleClick();
 };
-
-#endif // SEARCHLISTCONTROLLER_HPP
