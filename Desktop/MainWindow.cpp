@@ -18,29 +18,31 @@
 #include <QScreen>
 #include <QMessageBox>
 
-
 void MainWindow::resizeWindow()
 {
-    QScreen *screen = QGuiApplication::primaryScreen();
-    QRect  rec = screen->geometry();
-    auto height = rec.height();
-    auto width = rec.width();
-
-    QSize windowSize = QSize(1239, 966);
-    std::size_t tileSize = 59;
-
-    if (width <= windowSize.width() || height <= windowSize.height())
-    {
-        windowSize = QSize(969, 696);
-        tileSize = 41;
-    }
-    resize(windowSize);
     qApp->processEvents();
 
-    tileSize = std::ceil((std::max(ui->game_board->width(), ui->game_board->height())-2) / 15.0);
-    ui->game_board->horizontalHeader()->setDefaultSectionSize(tileSize);
-    ui->game_board->verticalHeader()->setDefaultSectionSize(tileSize);
+    auto geometry = ui->game_board_layout->geometry();
+    size_t tileSize = (std::min(geometry.width(), geometry.height()) - 2) / GameBoard::size;
+    for (int i = 0; i < GameBoard::size; i++)
+    {
+        ui->game_board->setColumnWidth(i, tileSize);
+        ui->game_board->setRowHeight(i, tileSize);
+    }
+    ui->game_board->setSizeAdjustPolicy(QTableView::AdjustToContents);
+    ui->game_board->adjustSize();
 }
+
+static bool is = false;
+
+void MainWindow::resizeEvent(QResizeEvent* event)
+{
+    QMainWindow::resizeEvent(event);
+
+    if (is)
+        resizeWindow();
+}
+
 
 void MainWindow::setUpMainWindow(const std::unique_ptr<IFilesystemHandler>& filesystemHandler, const QString& language)
 {
@@ -63,6 +65,7 @@ void MainWindow::setUpMainWindow(const std::unique_ptr<IFilesystemHandler>& file
     auto searchEngine = SearchEngineFactory::create(listOfWords, *lettersInfo, threadInformer);
     uiMenu->loading_bar->setValue(100);
     ui->setupUi(this);
+    is = true;
     auto uiController = UiControllerFactory().create(*this, *ui, lettersRenumberer, textureHandler);
     program_ = std::make_unique<Program>(std::move(uiController), std::move(searchEngine), threadInformer);
     resizeWindow();

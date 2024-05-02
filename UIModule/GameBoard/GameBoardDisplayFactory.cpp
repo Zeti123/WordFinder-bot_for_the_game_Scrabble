@@ -11,8 +11,8 @@ std::shared_ptr<IGameBoardDisplay> GameBoardDisplayFactory::create(QTableView& t
     auto model = new GameBoardModel({});
     tableView.setModel(model);
     tableView.setItemDelegate(new GameBoardDelegate(textureHandler, &tableView));
-    tableView.setSelectionBehavior( QAbstractItemView::SelectItems );
-    tableView.setSelectionMode( QAbstractItemView::SingleSelection );
+    tableView.setSelectionBehavior(QAbstractItemView::SelectItems);
+    tableView.setSelectionMode(QAbstractItemView::SingleSelection);
 
     return std::make_shared<TableViewBasedGameBoard>(tableView);
 }

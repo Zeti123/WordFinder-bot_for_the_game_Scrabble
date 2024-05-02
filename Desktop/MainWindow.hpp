@@ -26,6 +26,7 @@ public:
 
 private:
     void resizeWindow();
+    void resizeEvent(QResizeEvent* event);
     void showGameBoard(const GameBoard& gameBoard);
     void setUpMainWindow(const std::unique_ptr<IFilesystemHandler>& languageHandeler, const QString& str);
 

@@ -1,6 +1,4 @@
-#ifndef GAMEBOARDMODEL_HPP
-#define GAMEBOARDMODEL_HPP
-
+#pragma once
 #include "GameBoard.hpp"
 
 #include <QAbstractTableModel>
@@ -21,5 +19,3 @@ private:
     GameBoard gameBoard_;
     std::array<std::array<char, GameBoard::size>, GameBoard::size> backgroundColor_;
 };
-
-#endif // GAMEBOARDMODEL_HPP

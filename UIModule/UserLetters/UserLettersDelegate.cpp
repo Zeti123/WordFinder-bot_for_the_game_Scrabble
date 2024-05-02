@@ -17,7 +17,7 @@ void UserLettersDelegate::paint(QPainter* painter, const QStyleOptionViewItem& o
     if (!tile)
         letter = textureHandeler_->getTileTexture(ITextureHandler::FieldTextureType::TRANSPARMENT);
     else if (tile->type == ScrabbleLetter::Type::NORMAL_TILE)
-        letter = textureHandeler_->getLetterTexture(tile->letter);
+        letter = textureHandeler_->getLetterTexture(tile->letter, option.rect.size().width());
     else
         letter = textureHandeler_->getTileTexture(ITextureHandler::FieldTextureType::EMPTY_TILE);
 

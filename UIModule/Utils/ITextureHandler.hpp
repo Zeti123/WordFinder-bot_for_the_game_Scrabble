@@ -1,8 +1,8 @@
-#ifndef ITEXTUREHANDLER_H
-#define ITEXTUREHANDLER_H
+#pragma once
 
 #include <cstdint>
 #include <QPixmap>
+#include <QVector2D>
 
 class ITextureHandler
 {
@@ -19,9 +19,7 @@ public:
     };
 
 public:
-    virtual QPixmap getLetterTexture(uint8_t textureNum) = 0;
+    virtual QPixmap getLetterTexture(uint8_t textureNum, size_t size) = 0;
     virtual QPixmap& getTileTexture(FieldTextureType textureType) = 0;
-    virtual QPixmap getEmptyTileForLetter(u_int8_t textureNum) = 0;
+    virtual QPixmap getEmptyTileForLetter(u_int8_t textureNum, size_t size) = 0;
 };
-
-#endif // ITEXTUREHANDLER_H

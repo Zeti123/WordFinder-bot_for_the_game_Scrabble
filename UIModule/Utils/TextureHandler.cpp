@@ -1,7 +1,5 @@
 #include "TextureHandler.hpp"
 
-#include <fstream>
-
 #include <QPainter>
 #include <QPaintEngine>
 
@@ -19,16 +17,17 @@ TextureHandler::TextureHandler(const std::wstring& texturesPath, std::shared_ptr
     }
 }
 
-QPixmap TextureHandler::getLetterTexture(uint8_t textureNum)
+QPixmap TextureHandler::getLetterTexture(uint8_t textureNum, size_t size)
 {
     if (!renumberer_->isNumberValid(textureNum))
         std::runtime_error("no letter with number: " + std::to_string(textureNum));
 
     auto letter = renumberer_->getLetterFromNum(textureNum);
-    auto emptyTextureCopy = getTileTexture(FieldTextureType::EMPTY_TILE);
+    auto emptyTextureCopy = getTileTexture(FieldTextureType::EMPTY_TILE).scaled(QSize(size, size));
     auto letterScore = lettersInfo_->getLetterScore(textureNum);
 
-    drawCharOnTexture(emptyTextureCopy, QChar(letter), letterScore, QColor(0, 0, 0));
+
+    drawCharOnTexture(emptyTextureCopy, QChar(letter), letterScore, QColor(0, 0, 0), size);
 
     return emptyTextureCopy;
 }
@@ -38,32 +37,39 @@ QPixmap& TextureHandler::getTileTexture(ITextureHandler::FieldTextureType textur
     return tileBuffer_[static_cast<int>(textureType)];
 }
 
-QPixmap TextureHandler::getEmptyTileForLetter(u_int8_t textureNum)
+QPixmap TextureHandler::getEmptyTileForLetter(u_int8_t textureNum, size_t size)
 {
     if (!renumberer_->isNumberValid(textureNum))
         std::runtime_error("no letter with number: " + std::to_string(textureNum));
 
     auto letter = renumberer_->getLetterFromNum(textureNum);
-    auto emptyTextureCopy = getTileTexture(FieldTextureType::EMPTY_TILE);
+    auto emptyTextureCopy = getTileTexture(FieldTextureType::EMPTY_TILE).scaled(QSize(size, size));
 
-    drawCharOnTexture(emptyTextureCopy, QChar(letter), 0, QColor(50, 50, 50, 50));
+    drawCharOnTexture(emptyTextureCopy, QChar(letter), 0, QColor(50, 50, 50, 50), size);
 
     return emptyTextureCopy;
 }
 
-void TextureHandler::drawCharOnTexture(QPixmap& pixmap, QChar ch, uint8_t letterScore, QColor color)
+void TextureHandler::drawCharOnTexture(QPixmap& pixmap, QChar ch, uint8_t letterScore, QColor color, size_t size)
 {
+    constexpr float letterFontScale = 0.55;
+    constexpr float scoreFontScale = 0.20;
+    constexpr float scoreFontOffsetLeft = 0.65;
+    constexpr float scoreFontOffsetTop = 0.6;
+
     QPainter painter(&pixmap);
     painter.setPen(color);
     auto font = QFont("Arial");
     font.setBold(true);
-    font.setPointSize(31);
+    font.setPointSize(size * letterFontScale);
     painter.setFont(font);
-    painter.drawText(QRect(0, 0, 58, 58), Qt::AlignCenter, ch.toUpper());
-    QFontMetrics metrics(font);
+    painter.drawText(QRect(0, 0, size, size), Qt::AlignCenter, ch.toUpper());
 
-    font.setPointSize(8);
+    font.setPointSize(size * scoreFontScale);
+    font.setBold(false);
     painter.setFont(font);
 
-    painter.drawText(QRect(QPoint(40, 40), QPoint(55, 55)), Qt::AlignCenter, QString::fromStdString(std::to_string(letterScore)));
+    painter.drawText(QRect(QPoint(scoreFontOffsetLeft * size, scoreFontOffsetTop * size),
+                           QPoint(size, size)),
+                     Qt::AlignCenter, QString::fromStdString(std::to_string(letterScore)));
 }

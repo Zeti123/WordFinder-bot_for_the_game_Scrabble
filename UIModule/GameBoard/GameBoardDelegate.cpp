@@ -15,9 +15,9 @@ void GameBoardDelegate::paint(QPainter* painter, const QStyleOptionViewItem& opt
     char color = index.data(Qt::BackgroundRole).value<char>();
 
     if (tile.valueType == GameBoardTile::ValueType::NORMAL_TILE)
-        letter = textureHandeler_->getLetterTexture(tile.value);
+        letter = textureHandeler_->getLetterTexture(tile.value, option.rect.size().width());
     else if (tile.valueType == GameBoardTile::ValueType::EMPTY_TILE)
-        letter = textureHandeler_->getEmptyTileForLetter(tile.value);
+        letter = textureHandeler_->getEmptyTileForLetter(tile.value, option.rect.size().width());
     else
         letter = textureHandeler_->getTileTexture(ITextureHandler::FieldTextureType::TRANSPARMENT);
 
