@@ -2,7 +2,7 @@
 #include "ui_MainWindow.h"
 #include "ui_language_window.h"
 
-#include "UiController.hpp"
+#include "UiControllerFactory.hpp"
 #include "Program.hpp"
 #include "SearchEngineFactory.hpp"
 #include "LettersRenumberer.hpp"
@@ -10,9 +10,6 @@
 #include "PolishDebugRenumberer.hpp"
 #include "FileReadHelpers.hpp"
 #include "FilesystemHandlerFactory.hpp"
-#include "UserLettersFactory.hpp"
-#include "GameBoardDisplayFactory.hpp"
-#include "ResultsListsFactory.hpp"
 #include "UiStateChangersFactory.hpp"
 
 #include <cmath>
@@ -66,15 +63,8 @@ void MainWindow::setUpMainWindow(const std::unique_ptr<IFilesystemHandler>& file
     auto searchEngine = SearchEngineFactory::create(listOfWords, *lettersInfo, threadInformer);
     uiMenu->loading_bar->setValue(100);
     ui->setupUi(this);
-
-    auto wordsList = ResultsListsFactory::create(*ui->list_of_words, lettersRenumberer);
-
-    auto board = GameBoardDisplayFactory::create(*ui->game_board, textureHandler);
-    auto userLettersDisplay = UserLettersFactory::create(*ui->user_letters, textureHandler);
-
-    auto stateChangers = UiStateChangersFactory::create(*this, *ui, lettersRenumberer, board, userLettersDisplay, wordsList);
-    auto gameBoardController = std::make_unique<UiController>(board, userLettersDisplay, wordsList, stateChangers);
-    program_ = std::make_unique<Program>(std::move(gameBoardController), std::move(searchEngine), threadInformer);
+    auto uiController = UiControllerFactory().create(*this, *ui, lettersRenumberer, textureHandler);
+    program_ = std::make_unique<Program>(std::move(uiController), std::move(searchEngine), threadInformer);
     resizeWindow();
 }
 

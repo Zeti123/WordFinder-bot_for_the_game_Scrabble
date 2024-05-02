@@ -34,6 +34,7 @@ SOURCES += \
     ../UIModule/ResultsList/ResultsListsFactory.cpp \
     ../UIModule/ResultsList/ScrabbleWordsList.cpp \
     ../UIModule/UiController.cpp \
+    ../UIModule/UiControllerFactory.cpp \
     ../UIModule/UiStateChangers/GameBoardTilesEraser/EraseFromGameBoardCommand.cpp \
     ../UIModule/UiStateChangers/GameBoardTilesEraser/GameBoardTilesEraser.cpp \
     ../UIModule/UiStateChangers/GameBoardTilesEraser/GameBoardTilesEraserFactory.cpp \
@@ -114,6 +115,7 @@ HEADERS += \
     ../UIModule/ResultsList/ResultsListsFactory.hpp \
     ../UIModule/ResultsList/ScrabbleWordsList.hpp \
     ../UIModule/UiController.hpp \
+    ../UIModule/UiControllerFactory.hpp \
     ../UIModule/UiStateChangers/GameBoardTilesEraser/EraseFromGameBoardCommand.hpp \
     ../UIModule/UiStateChangers/GameBoardTilesEraser/GameBoardTilesEraser.hpp \
     ../UIModule/UiStateChangers/GameBoardTilesEraser/GameBoardTilesEraserFactory.hpp \
