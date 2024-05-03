@@ -31,6 +31,7 @@ SOURCES += \
     ../UIModule/GameBoard/GameBoardModel.cpp \
     ../UIModule/GameBoard/TableViewBasedGameBoard.cpp \
     ../UIModule/ResultsList/ListItemDelegate.cpp \
+    ../UIModule/ResultsList/ListModel.cpp \
     ../UIModule/ResultsList/ResultsListsFactory.cpp \
     ../UIModule/ResultsList/ScrabbleWordsList.cpp \
     ../UIModule/UiController.cpp \
@@ -112,6 +113,7 @@ HEADERS += \
     ../UIModule/IUiController.hpp \
     ../UIModule/ResultsList/IList.hpp \
     ../UIModule/ResultsList/ListItemDelegate.hpp \
+    ../UIModule/ResultsList/ListModel.hpp \
     ../UIModule/ResultsList/ResultsListsFactory.hpp \
     ../UIModule/ResultsList/ScrabbleWordsList.hpp \
     ../UIModule/UiController.hpp \

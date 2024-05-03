@@ -578,7 +578,7 @@ QPushButton:default {
         <property name="flat">
          <bool>true</bool>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,11">
+        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,15">
          <property name="leftMargin">
           <number>2</number>
          </property>
@@ -671,7 +671,7 @@ QPushButton:default {
           </layout>
          </item>
          <item>
-          <widget class="QListWidget" name="list_of_words">
+          <widget class="QListView" name="list_of_words">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>

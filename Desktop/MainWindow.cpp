@@ -12,8 +12,6 @@
 #include "FilesystemHandlerFactory.hpp"
 #include "UiStateChangersFactory.hpp"
 
-#include <cmath>
-
 #include <QScrollBar>
 #include <QScreen>
 #include <QMessageBox>
