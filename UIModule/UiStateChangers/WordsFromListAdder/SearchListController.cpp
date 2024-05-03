@@ -41,7 +41,6 @@ IList::FilterFunctionType SearchListController::getSearchFilter(const ScrabbleSt
         return false;
     };
 }
-#include <iostream>
 
 void SearchListController::receiveClick()
 {

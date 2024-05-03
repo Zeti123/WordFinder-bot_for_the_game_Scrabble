@@ -16,11 +16,9 @@ int GameBoardModel::columnCount(const QModelIndex&) const
     return GameBoard::size;
 }
 
-QVariant GameBoardModel::headerData(int section, Qt::Orientation orientation, int) const
+QVariant GameBoardModel::headerData(int, Qt::Orientation, int) const
 {
-    if (orientation == Qt::Orientation::Horizontal)
-        return QString::number(section);
-    return QString(QChar('a' + section));
+    return QString("");
 }
 
 QVariant GameBoardModel::data(const QModelIndex& index, int role) const

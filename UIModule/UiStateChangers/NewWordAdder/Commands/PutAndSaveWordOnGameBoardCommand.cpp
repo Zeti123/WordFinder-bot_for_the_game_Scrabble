@@ -10,6 +10,9 @@ bool PutAndSaveWordOnGameBoardCommand::execute()
     std::pair<uint8_t, uint8_t> position = gameBoard_->getSelectedFiled();
     ScrabbleString word = textEdit_->getText();
 
+    if (word.size() > GameBoard::size)
+        word.resize(GameBoard::size);
+
     auto gameBoard = gameBoard_->getGameBoard();
     lastSelected_ = WordPlacement(word, position, orientation);
     prevTiles_ = gameBoard.getWordFromPlacement(lastSelected_);

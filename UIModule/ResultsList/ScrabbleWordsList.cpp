@@ -1,14 +1,21 @@
 #include "ScrabbleWordsList.hpp"
 
 #include <algorithm>
+#include <execution>
 
-ScrabbleWordsList::ScrabbleWordsList(QListWidget &list, std::shared_ptr<ILettersRenumberer> renumberer)
-    :list_(list), lastSelected_(WordPlacement({}, {}, {}), 0), renumberer_(renumberer), sortedResults_({}), filteredEnd_(sortedResults_.begin()),
+Q_DECLARE_METATYPE(std::vector<ScrabbleSearchEngineResult>*)
+
+ScrabbleWordsList::ScrabbleWordsList(QListView &list, std::shared_ptr<ILettersRenumberer> renumberer)
+    :list_(list), lastSelected_(WordPlacement({}, {}, {}), 0),
+     renumberer_(renumberer), sortedResults_({}), filteredEnd_(sortedResults_.begin()),
      comparator_([](const ScrabbleSearchEngineResult& l, const ScrabbleSearchEngineResult& r) { return l.score > r.score; }),
      filter_([](const ScrabbleSearchEngineResult&){ return true; })
 {
-    connect(&list_, &QListWidget::currentRowChanged, this, &ScrabbleWordsList::receiveCurrentRowChanged);
-    connect(&list_, &QListWidget::itemDoubleClicked, this, &ScrabbleWordsList::receiveItemDoubleClicked);
+    connect(list_.selectionModel(), &QItemSelectionModel::currentChanged, this, &ScrabbleWordsList::receiveCurrentRowChanged);
+    connect(&list_, &QListView::clicked, this, &ScrabbleWordsList::receiveCurrentRowChanged);
+    connect(&list_, &QListView::doubleClicked, this, &ScrabbleWordsList::receiveItemDoubleClicked);
+
+    list_.model()->setData({}, QVariant::fromValue(&sortedResults_), Qt::EditRole);
 }
 
 std::size_t ScrabbleWordsList::size() const
@@ -27,8 +34,9 @@ const ScrabbleSearchEngineResult& ScrabbleWordsList::operator[](std::size_t inde
 void ScrabbleWordsList::sortResults(ComparatorFunctionType comparator)
 {
     if (!sortedResults_.empty())
-        std::sort(sortedResults_.begin(), filteredEnd_, comparator);
+        std::sort(std::execution::par, sortedResults_.begin(), filteredEnd_, comparator);
     comparator_ = comparator;
+
     refreshList();
 }
 
@@ -38,19 +46,16 @@ void ScrabbleWordsList::filterResults(FilterFunctionType filter)
 
     filter_ = filter;
     sortResults(comparator_);
-    refreshList();
-}
 
-void ScrabbleWordsList::setResults(const std::vector<ScrabbleSearchEngineResult>& results)
-{
-    sortedResults_ = results;
-    filterResults(filter_);
+    refreshList();
 }
 
 void ScrabbleWordsList::setResults(std::vector<ScrabbleSearchEngineResult>&& results)
 {
     sortedResults_ = std::move(results);
     filterResults(filter_);
+
+    refreshList();
 }
 
 ScrabbleSearchEngineResult ScrabbleWordsList::getSelected()
@@ -58,45 +63,19 @@ ScrabbleSearchEngineResult ScrabbleWordsList::getSelected()
     return lastSelected_;
 }
 
-void ScrabbleWordsList::receiveCurrentRowChanged(int currentRow)
+void ScrabbleWordsList::receiveCurrentRowChanged(const QModelIndex& current)
 {
-    if (clear_)
-        return;
-
-    lastSelected_ = this->operator[](currentRow);
-    emit selectionChanged(this->operator[](currentRow));
+    lastSelected_ = this->operator[](current.row());
+    emit selectionChanged(this->operator[](current.row()));
 }
 
-void ScrabbleWordsList::receiveItemDoubleClicked(QListWidgetItem* item)
+void ScrabbleWordsList::receiveItemDoubleClicked(const QModelIndex& current)
 {
-    if (clear_)
-        return;
-
-    int row = item->listWidget()->row(item);
-    emit selectionDoubleClick(sortedResults_[row]);
+    emit selectionDoubleClick(sortedResults_[current.row()]);
 }
 
 void ScrabbleWordsList::refreshList()
 {
-    clear_ = true;
-    list_.clear();
-    clear_ = false;
-    for (std::size_t i = 0; i < std::min(50ul, size()); i++)
-    {
-        list_.addItem(QString::fromStdWString(convertToReadable(sortedResults_[i].word.word)));
-    }
-    for (int i = 0; i < list_.count(); i++)
-        list_.item(i)->setData(Qt::UserRole + 1, QString::fromStdString(std::to_string(sortedResults_[i].score)));
-}
-
-std::wstring ScrabbleWordsList::convertToReadable(const ScrabbleString& str)
-{
-    std::wstring ret;
-    ret.reserve(str.size());
-    for (auto letter: str)
-    {
-        ret.push_back(renumberer_->getLetterFromNum(letter.letter));
-    }
-    return ret;
+    list_.model()->setData({}, {}, Qt::DisplayRole);
 }
 

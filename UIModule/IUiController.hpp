@@ -1,13 +1,12 @@
-#ifndef IGAMEBOARDCONTROLLER_HPP
-#define IGAMEBOARDCONTROLLER_HPP
+#pragma once
 
 #include "IUserLettersDisplay.hpp"
 
-#include "AlgorithmModule/ScrabbleSearchEngineResult.hpp"
-
 #include <QObject>
 
-class GameBoard;
+#include "AlgorithmModule/ScrabbleSearchEngineResult.hpp"
+#include "GameBoard.hpp"
+
 struct WordPlacement;
 enum class Orientation;
 
@@ -23,11 +22,8 @@ class IUiController: public QObject
 
 public:
     virtual ~IUiController() = default;
-    virtual void updateResults(const std::vector<ScrabbleSearchEngineResult>& results) = 0;
     virtual void updateResults(std::vector<ScrabbleSearchEngineResult>&& results) = 0;
 
 signals:
     void gameStateChanged(const GameState& gameState);
 };
-
-#endif // IGAMEBOARDCONTROLLER_HPP

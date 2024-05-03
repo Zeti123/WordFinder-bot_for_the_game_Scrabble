@@ -1,35 +1,33 @@
-#ifndef SCRABBLEWORDSLIST_HPP
-#define SCRABBLEWORDSLIST_HPP
+#pragma once
 
 #include "IList.hpp"
 #include "ILettersRenumberer.hpp"
 
 #include <memory>
 
-#include <QListWidget>
+#include <QListView>
 
 class ScrabbleWordsList: public IList
 {
     Q_OBJECT
+
 public:
-    ScrabbleWordsList(QListWidget& list, std::shared_ptr<ILettersRenumberer> renumberer);
+    ScrabbleWordsList(QListView& list, std::shared_ptr<ILettersRenumberer> renumberer);
     std::size_t size() const override;
     const ScrabbleSearchEngineResult& operator [](std::size_t index) const override;
     void sortResults(ComparatorFunctionType comparator) override;
     void filterResults(FilterFunctionType filter) override;
-    void setResults(const std::vector<ScrabbleSearchEngineResult>& results) override;
     void setResults(std::vector<ScrabbleSearchEngineResult>&& results) override;
     ScrabbleSearchEngineResult getSelected() override;
 
 private slots:
-    void receiveCurrentRowChanged(int currentRow);
-    void receiveItemDoubleClicked(QListWidgetItem* item);
+    void receiveCurrentRowChanged(const QModelIndex& current);
+    void receiveItemDoubleClicked(const QModelIndex& current);
 
 private:
-    bool clear_;
     void refreshList();
-    std::wstring convertToReadable(const ScrabbleString& str);
-    QListWidget& list_;
+
+    QListView& list_;
     ScrabbleSearchEngineResult lastSelected_;
     std::shared_ptr<ILettersRenumberer> renumberer_;
     std::vector<ScrabbleSearchEngineResult> sortedResults_;
@@ -37,5 +35,3 @@ private:
     ComparatorFunctionType comparator_;
     FilterFunctionType filter_;
 };
-
-#endif // SCRABBLEWORDSLIST_HPP

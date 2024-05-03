@@ -18,7 +18,6 @@ public:
 
     void addStateChanger(std::shared_ptr<IUiStateChanger> stateChanger);
     void removeStateChanger(std::shared_ptr<IUiStateChanger> stateChanger);
-    void updateResults(const std::vector<ScrabbleSearchEngineResult>& results) override;
     void updateResults(std::vector<ScrabbleSearchEngineResult>&& results) override;
 
 private:

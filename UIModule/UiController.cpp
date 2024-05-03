@@ -28,14 +28,9 @@ void UiController::removeStateChanger(std::shared_ptr<IUiStateChanger> stateChan
     stateChangers_.erase(it);
 }
 
-void UiController::updateResults(const std::vector<ScrabbleSearchEngineResult>& results)
-{
-    listOfWords_->setResults(results);
-}
-
 void UiController::updateResults(std::vector<ScrabbleSearchEngineResult>&& results)
 {
-    listOfWords_->setResults(results);
+    listOfWords_->setResults(std::move(results));
 }
 
 void UiController::receiveFocusChange(std::weak_ptr<IUiStateChanger> stateChanger)

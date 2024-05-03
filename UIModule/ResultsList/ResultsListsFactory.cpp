@@ -3,11 +3,14 @@
 #include <QScrollBar>
 
 #include "ScrabbleWordsList.hpp"
+#include "ListModel.hpp"
 #include "ListItemDelegate.hpp"
 
-std::shared_ptr<IList> ResultsListsFactory::create(QListWidget& list, std::shared_ptr<ILettersRenumberer> renumberer)
+std::shared_ptr<IList> ResultsListsFactory::create(QListView& list, std::shared_ptr<ILettersRenumberer> renumberer)
 {
-    list.setItemDelegate(new ListItemDelegate(&list));
+    list.setItemDelegate(new ListItemDelegate(&list, renumberer));
+    list.setModel(new ListModel());
+
     list.verticalScrollBar()->setStyleSheet("QScrollBar:vertical {"
                                                 "border: 0px solid grey;"
                                                 "background: #006f65;"

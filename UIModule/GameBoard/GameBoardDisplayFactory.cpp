@@ -1,7 +1,6 @@
 #include "GameBoardDisplayFactory.hpp"
 
 #include "GameBoardDelegate.hpp"
-#include "TextureHandler.hpp"
 #include "GameBoardModel.hpp"
 #include "TableViewBasedGameBoard.hpp"
 
