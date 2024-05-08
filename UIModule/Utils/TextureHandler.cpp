@@ -37,7 +37,7 @@ QPixmap& TextureHandler::getTileTexture(ITextureHandler::FieldTextureType textur
     return tileBuffer_[static_cast<int>(textureType)];
 }
 
-QPixmap TextureHandler::getEmptyTileForLetter(u_int8_t textureNum, size_t size)
+QPixmap TextureHandler::getEmptyTileForLetter(uint8_t textureNum, size_t size)
 {
     if (!renumberer_->isNumberValid(textureNum))
         std::runtime_error("no letter with number: " + std::to_string(textureNum));

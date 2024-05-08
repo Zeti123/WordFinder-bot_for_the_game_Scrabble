@@ -12,7 +12,7 @@ public:
     TextureHandler(const std::wstring& texturesPath, std::shared_ptr<ILettersRenumberer> renumberer, std::shared_ptr<LettersInfo> lettersInfo);
     QPixmap getLetterTexture(uint8_t textureNum, size_t size) override;
     QPixmap& getTileTexture(FieldTextureType textureType) override;
-    QPixmap getEmptyTileForLetter(u_int8_t textureNum, size_t size) override;
+    QPixmap getEmptyTileForLetter(uint8_t textureNum, size_t size) override;
 
 private:
     void drawCharOnTexture(QPixmap& pixmap, QChar ch, uint8_t letterScore, QColor color, size_t size);

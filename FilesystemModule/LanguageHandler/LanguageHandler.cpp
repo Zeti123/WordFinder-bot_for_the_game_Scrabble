@@ -6,7 +6,7 @@
 std::vector<QString> LanguageHandler::getAvailableLanguages()
 {
     namespace fs = std::filesystem;
-    const auto currentPath = std::string(fs::current_path());
+    const auto currentPath = fs::current_path().string();
     const auto languagePath = currentPath + LANGUAGE_PATH;
 
     if (!fs::exists(currentPath))
@@ -28,7 +28,7 @@ std::vector<QString> LanguageHandler::getAvailableLanguages()
 QString LanguageHandler::getWordsFilePath(const QString& language)
 {
     namespace fs = std::filesystem;
-    const auto wordsPath = std::string(fs::current_path()) + LANGUAGE_PATH + language.toStdString() + WORDS_FILE_LOCAL_PATH;
+    const auto wordsPath = fs::current_path().string() + LANGUAGE_PATH + language.toStdString() + WORDS_FILE_LOCAL_PATH;
     if (!fs::exists(wordsPath))
         throw std::runtime_error("cannot find" + wordsPath + " file\n" + ERROR_HINT);
 
@@ -38,7 +38,7 @@ QString LanguageHandler::getWordsFilePath(const QString& language)
 QString LanguageHandler::getLettersInfoFilePath(const QString& language)
 {
     namespace fs = std::filesystem;
-    const auto lettersInfoPath = std::string(fs::current_path()) + LANGUAGE_PATH + language.toStdString() + LETTERS_INFO_FILE_LOCAL_PATH;
+    const auto lettersInfoPath = fs::current_path().string() + LANGUAGE_PATH + language.toStdString() + LETTERS_INFO_FILE_LOCAL_PATH;
     if (!fs::exists(lettersInfoPath))
         throw std::runtime_error("cannot find" + lettersInfoPath + " file\n" + ERROR_HINT);
 
