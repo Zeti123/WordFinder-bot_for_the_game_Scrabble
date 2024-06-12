@@ -36,10 +36,10 @@ class GameBoard
 {
 public:
     constexpr static uint8_t size = 15;
-    static FieldBonus getFieldBonus(uint8_t x, uint8_t y);
+    static FieldBonus getFieldBonus(uint8_t y, uint8_t x);
 
-    std::array<GameBoardTile, 15>& operator[](std::size_t index);
-    const std::array<GameBoardTile, 15>& operator[](std::size_t index) const;
+    std::array<GameBoardTile, size>& operator[](std::size_t index);
+    const std::array<GameBoardTile, size>& operator[](std::size_t index) const;
     bool operator == (const GameBoard& other) const;
     bool operator != (const GameBoard& other) const;
 
@@ -50,7 +50,7 @@ public:
     void placeWord(const WordPlacement& wordPlacement);
 
 private:
-    static constexpr std::array<std::array<uint8_t, size>, size> bonuses = {{  
+    static constexpr std::array<std::array<uint8_t, size>, size> bonuses = {{
             {{4, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 4}},
             {{0, 3, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 3, 0}},
             {{0, 0, 3, 0, 0, 0, 1, 0, 1, 0, 0, 0, 3, 0, 0}},

@@ -23,8 +23,8 @@ private:
 	struct PrivateNode
 	{
 		PrivateNode* children;
-		uint32_t subtreeSize;
-		uint16_t childrenCount;
+        uint8_t subtreeSize;
+        uint8_t childrenCount;
 		char character;
 		bool endOfWord;
 	};
@@ -43,11 +43,11 @@ public:
 	TrieNode(const TrieNode&) = default;
 	TrieNode(const Trie::PrivateNode& node);
 	// returns number of children
-	uint32_t childCount() const;
+    uint8_t childCount() const;
 	TrieNode childAt(uint16_t num) const;
 	// returns number of child with given character, if none exists, it returns TreeNode::npos
-	uint16_t getChildNum(char ch) const;
-	uint32_t subtreeSize() const;
+    uint16_t getChildNum(char ch) const;
+    uint8_t subtreeSize() const;
 	char character() const;
 	bool leaf() const;
 	bool endOfWord() const;

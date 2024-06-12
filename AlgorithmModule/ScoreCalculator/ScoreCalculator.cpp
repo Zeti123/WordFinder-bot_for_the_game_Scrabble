@@ -80,7 +80,7 @@ std::size_t ScoreCalculator::calculateResultScore(const WordPlacement& word, con
         if (gameBoard[posY][posX].valueType != GameBoardTile::ValueType::EMPTY)
             continue;
 
-        auto bonus = GameBoard::getFieldBonus(posX, posY);
+        auto bonus = GameBoard::getFieldBonus(posY, posX);
         auto letter = word.word[i];
         switch (bonus)
         {

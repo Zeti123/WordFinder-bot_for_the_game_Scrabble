@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <cstring>
-#include <iostream>
 
 Trie::Trie(const std::vector<std::string>& listOfWords)
 	:root_{nullptr, 1, 0, '\0', false} 
@@ -89,8 +88,8 @@ uint32_t Trie::insertRec(const std::string& word, size_t charNum, PrivateNode& c
 		pos = currNode.childrenCount;
 		addChild(currNode, c);
 	}
-	uint32_t subTreeSize = insertRec(word, charNum+1, currNode.children[pos]);
-	currNode.subtreeSize = std::max(currNode.subtreeSize, subTreeSize + 1);
+    uint8_t subTreeSize = insertRec(word, charNum+1, currNode.children[pos]);
+    currNode.subtreeSize = std::max(currNode.subtreeSize, static_cast<uint8_t>(subTreeSize + 1));
 	return currNode.subtreeSize;
 }
 
@@ -108,7 +107,7 @@ TrieNode::TrieNode(const Trie::PrivateNode& node)
 	:node_(node) {}
 
 // returns number of children
-uint32_t TrieNode::childCount() const
+uint8_t TrieNode::childCount() const
 {
 	return node_.childrenCount;
 }
@@ -129,7 +128,7 @@ uint16_t TrieNode::getChildNum(char ch) const
 	return npos;
 }
 
-uint32_t TrieNode::subtreeSize() const
+uint8_t TrieNode::subtreeSize() const
 {
 	return node_.subtreeSize;
 } 

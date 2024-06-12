@@ -21,18 +21,18 @@ ScrabbleLetter GameBoardTile::toScrabbleLetter() const
         ScrabbleLetter(value, ScrabbleLetter::Type::NORMAL_TILE) : ScrabbleLetter(value, ScrabbleLetter::Type::EMPTY_TILE); 
 }
 
-FieldBonus GameBoard::getFieldBonus(uint8_t x, uint8_t y)
+FieldBonus GameBoard::getFieldBonus(uint8_t y, uint8_t x)
 {
-    logger::debug("GameBoard::getFieldBonus(", static_cast<std::size_t>(x), ' ', static_cast<std::size_t>(y), ")\n");
+    logger::debug("GameBoard::getFieldBonus(x:", static_cast<std::size_t>(x), " y: ", static_cast<std::size_t>(y), ")\n");
     return static_cast<FieldBonus>(bonuses[y][x]);
 }
 
-std::array<GameBoardTile, 15>& GameBoard::operator[](std::size_t index)
+std::array<GameBoardTile, GameBoard::size>& GameBoard::operator[](std::size_t index)
 {
     return board_[index];
 }
 
-const std::array<GameBoardTile, 15>& GameBoard::operator[](std::size_t index) const
+const std::array<GameBoardTile, GameBoard::size>& GameBoard::operator[](std::size_t index) const
 {
     return board_[index];
 }
@@ -91,7 +91,7 @@ std::vector<GameBoardTile> GameBoard::getWordFromPlacement(const WordPlacement& 
                  ' ', placement.orientation,")\n");
 
     std::vector<GameBoardTile> word;
-    word.reserve(15);
+    word.reserve(GameBoard::size);
     for (size_t i = 0; i < placement.word.size(); i++)
     {
         auto x = (placement.orientation == Orientation::HORIZONTAL) * i + placement.position.first;
