@@ -1,5 +1,7 @@
 #include "TextureHandler.hpp"
 
+#include <stdexcept>
+
 #include <QPainter>
 #include <QPaintEngine>
 

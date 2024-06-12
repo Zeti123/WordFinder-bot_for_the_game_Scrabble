@@ -1,8 +1,8 @@
 #include "PolishDebugRenumberer.hpp"
 
 PolishDebugRenumberer::PolishDebugRenumberer()
-    :polishLetters_({{{U'ż', 'Z'}, {U'ó', 'O'}, {U'ł', 'L'}, {U'ć', 'C'}, {U'ę', 'E'}, {U'ś', 'S'}, {U'ą', 'A'}, {U'ź', 'X'}, {U'ń', 'N'}}}){
-
+    //:polishLetters_({{{U'ż', 'Z'}, {U'ó', 'O'}, {U'ł', 'L'}, {U'ć', 'C'}, {U'ę', 'E'}, {U'ś', 'S'}, {U'ą', 'A'}, {U'ź', 'X'}, {U'ń', 'N'}}}){
+{
 }
 
 wchar_t PolishDebugRenumberer::getLetterFromNum(uint8_t num)

@@ -1,6 +1,7 @@
 #include "LettersRenumberer.hpp"
 
 #include <stdexcept>
+#include <string>
 
 LettersRenumberer::LettersRenumberer(const std::vector<char32_t>& letters)
     :numToLetter_({}), letterToNum_({}), counter_(0)

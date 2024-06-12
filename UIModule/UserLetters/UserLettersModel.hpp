@@ -4,6 +4,7 @@
 #include "ScrabbleString.hpp"
 
 #include <optional>
+#include <array>
 
 #include <QAbstractItemModel>
 

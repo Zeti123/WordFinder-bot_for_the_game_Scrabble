@@ -1,5 +1,7 @@
 #include "UserLettersModel.hpp"
 
+#include <stdexcept>
+
 int UserLettersModel::rowCount(const QModelIndex&) const
 {
     return 1;

@@ -1,5 +1,7 @@
 #include "LettersInfo.hpp"
 
+#include <string>
+
 #include "log.hpp"
 
 LettersInfo::LettersInfo(const std::vector<std::pair<char, std::size_t>>& letters)
